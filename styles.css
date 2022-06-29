@@ -3,7 +3,7 @@ body {
     box-sizing: border-box;
 }
 
-.topo {
+header {
     font-size: 37px;
     color: #ffffff;
     background-color: rgba(236, 54, 45, 1);
