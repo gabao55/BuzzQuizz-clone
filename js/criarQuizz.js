@@ -36,8 +36,9 @@ function seguirParaCriarPerguntas () {
 }
 
 function validarCampos (title, image, qtdPerguntas, qtdNiveis) {
-    if (!validarTitle(title) || !validarImage(image) 
-    || !validarQtdPerguntas(qtdPerguntas) || !validarQtdNiveis(qtdNiveis)) {
+    if (!validarTitle(title) || !validarImage(image)
+      || !validarQtdPerguntas(qtdPerguntas)
+      || !validarQtdNiveis(qtdNiveis)) {
         return false
     }
 
