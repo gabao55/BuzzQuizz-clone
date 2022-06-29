@@ -5,7 +5,7 @@ function iniciaTelaListaDeQuizzes() {
         </div>
     `
 
-    let paginaDeQuizzes = document.querySelector(".pagina-de-quizz");
+    let paginaDeQuizzes = document.querySelector(".lista-quizzes");
     paginaDeQuizzes.innerHTML += estrutura;
 
     consultarQuizzes();
