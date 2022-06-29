@@ -5,7 +5,7 @@ function iniciaTelaListaDeQuizzes() {
         </div>
     `
 
-    let paginaDeQuizzes = document.querySelector(".pagina-de-quizz");
+    let paginaDeQuizzes = document.querySelector(".lista-quizzes");
     paginaDeQuizzes.innerHTML += estrutura;
 
     consultarQuizzes();
@@ -43,7 +43,7 @@ function renderizarQuizz (quizz) {
 
 function responderQuizz (element) {
     let quizz = element;
-    quizz.parentNode.parentNode.remove();
+    quizz.parentNode.parentNode.innerHTML = "";
     // TODO: Ir para a próxima página de responder quizz
 }
 
