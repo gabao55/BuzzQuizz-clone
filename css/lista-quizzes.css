@@ -1,5 +1,6 @@
-.pagina-de-quizz {
-    width: 340px;
+.lista-quizzes {
+    margin-top: 69px;
+    width: 340px;  
 }
 
 h2 {
@@ -50,7 +51,7 @@ h2 {
 }
 
 @media (min-width: 1100px) {
-    .pagina-de-quizz {
+    .lista-quizzes {
         width: 1051px; 
     }
 }
