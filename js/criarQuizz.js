@@ -1,4 +1,6 @@
 let quizz = {};
+let qtdPerguntas;
+let qtdNiveis;
 
 function iniciaTelaCriarQuizz () {
     const infosIniciais = `
@@ -6,8 +8,8 @@ function iniciaTelaCriarQuizz () {
         <div class="inserir-infos">
             <input type="text" placeholder="Título do seu quizz" />
             <input type="url" placeholder="URL da imagem do seu quizz" />
-            <input type="text" placeholder="Quantidade de perguntas do quizz" />
-            <input type="text" placeholder="Quantidade de níveis do quizz" />
+            <input type="number" placeholder="Quantidade de perguntas do quizz" />
+            <input type="number" placeholder="Quantidade de níveis do quizz" />
         </div>
         <button>Prosseguir para criar perguntas</button>
     `
@@ -32,7 +34,7 @@ function seguirParaCriarPerguntas () {
         return
     }
 
-    console.log("passou");
+
 }
 
 function validarCampos (title, image, qtdPerguntas, qtdNiveis) {
