@@ -1,0 +1,28 @@
+.pagina-de-quizz{
+    display: none;
+}
+.banner{
+    margin-top: 69px;
+    height: 142px;
+    width: 100%;
+    background-color: rgba(0, 0, 0, 1);  
+    position: relative;       
+}
+.banner img{
+    width:100vw;
+    height: 142px;
+    object-fit: cover;  
+    opacity: 0.6;
+}
+.banner span{
+height: 142px;
+width: 100%;
+font-size: 19px;
+position: absolute;
+top:0;
+left: 0;
+display: flex;
+justify-content: center;
+align-items: center;
+color: white;
+}
