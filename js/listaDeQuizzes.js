@@ -1,3 +1,5 @@
+let quizzID;
+
 function iniciaTelaListaDeQuizzes() {
     const estrutura = `
         <h2>Todos os Quizzes</h2>
@@ -43,8 +45,11 @@ function renderizarQuizz (quizz) {
 
 function responderQuizz (element) {
     let quizz = element;
+    quizzID = quizz.id;
     quizz.parentNode.parentNode.innerHTML = "";
     // TODO: Ir para a próxima página de responder quizz
 }
 
 iniciaTelaListaDeQuizzes();
+
+export default quizzID;
