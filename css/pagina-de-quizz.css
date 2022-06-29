@@ -14,11 +14,15 @@
     object-fit: cover;  
     opacity: 0.6;
 }
-.banner h3{
+.banner span{
+height: 142px;
+width: 100%;
 font-size: 19px;
 position: absolute;
-margin: 0;
-top: 50%;
-left: 50%;
+top:0;
+left: 0;
+display: flex;
+justify-content: center;
+align-items: center;
 color: white;
 }
