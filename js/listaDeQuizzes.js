@@ -43,7 +43,7 @@ function renderizarQuizz (quizz) {
 
 function responderQuizz (element) {
     let quizz = element;
-    quizz.parentNode.parentNode.remove();
+    quizz.parentNode.parentNode.innerHTML = "";
     // TODO: Ir para a próxima página de responder quizz
 }
 
