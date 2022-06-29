@@ -1,6 +1,6 @@
 let quizz = {};
-let qtdPerguntas;
-let qtdNiveis;
+let numeroDePerguntas;
+let numeroDeNiveis;
 
 function iniciaTelaCriarQuizz () {
     const infosIniciais = `
@@ -34,7 +34,15 @@ function seguirParaCriarPerguntas () {
         return
     }
 
+    quizz = {
+        title: title,
+        image: image
+    }
 
+    numeroDePerguntas = qtdPerguntas;
+    numeroDeNiveis = qtdNiveis;
+
+    renderizarCriarPerguntas();
 }
 
 function validarCampos (title, image, qtdPerguntas, qtdNiveis) {
@@ -85,7 +93,9 @@ function validarQtdNiveis (qtdNiveis) {
 
 function renderizarCriarPerguntas () {
     document.querySelector(".criar-quizz").innerHTML = "";
-
+    for (let i = 0 ; i < numeroDePerguntas ; i ++) {
+        console.log(i);
+    }
 }
 
 iniciaTelaCriarQuizz();
