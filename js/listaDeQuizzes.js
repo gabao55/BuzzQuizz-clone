@@ -29,12 +29,19 @@ function listarQuizzes(resposta) {
     for (let i = 0 ; i < resposta.data.length ; i ++) {
         renderizarQuizz(resposta.data[i]);
     }
+
+    document.querySelectorAll(".quizz").forEach( obj => {
+        obj.addEventListener(
+            "click",
+            () => responderQuizz(obj)
+        );
+    });
 }
 
 function renderizarQuizz (quizz) {
     let listaQuizzes = document.querySelector(".quizzes");
     const quizzAtual = `
-        <div class="quizz" id="${quizz.id}" onclick="responderQuizz(this);">
+        <div class="quizz" id="${quizz.id}">
             <div class="gradient"></div>
             <img src="${quizz.image}" />
             <h3>${quizz.title}</h3>
@@ -46,7 +53,7 @@ function renderizarQuizz (quizz) {
 function responderQuizz (element) {
     let quizz = element;
     quizzID = quizz.id;
-    quizz.parentNode.parentNode.innerHTML = "";
+    quizz.parentNode.parentNode.remove();
     // TODO: Ir para a próxima página de responder quizz
 }
 
