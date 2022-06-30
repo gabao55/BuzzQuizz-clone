@@ -74,6 +74,7 @@ function renderizarBanner(resposta) {
         </div>`
     renderizarPerguntas(resposta.data.questions);
 }
+let listaRespostasCertas = [];
 function renderizarPerguntas(resposta) {
     let perguntas = resposta;
     let estrutura = document.querySelector(".pagina-de-quizz");
@@ -87,10 +88,33 @@ function renderizarPerguntas(resposta) {
             <div class="titulo-pergunta"><span>${perguntas[i].title}</span></div>
             <div class="container-respostas pergunta${i}"></div></div>`;
         for (let j = 0; j < perguntas[i].answers.length; j++) {
-            let containerRespostas=document.querySelector(`.pergunta${i}`);
+            let containerRespostas = document.querySelector(`.pergunta${i}`);
             containerRespostas.innerHTML += `<div class="resposta"><img src="${respostasRandomizadas[j].image}">${respostasRandomizadas[j].text}</div>`;
-        }        
+            if (respostasRandomizadas[j].isCorrectAnswer === true) {
+                listaRespostasCertas[i] = `<img src="${respostasRandomizadas[j].image}">${respostasRandomizadas[j].text}`;
+            }
+        }
         respostasRandomizadas = [];
+    }
+    adicionarClickRespostas();
+}
+function adicionarClickRespostas() {
+    document.querySelectorAll(".resposta").forEach(obj => {
+        obj.addEventListener(
+            "click",
+            () => {
+                respostasCorretas(obj);
+            }
+        );
+    })
+}
+function respostasCorretas(element) {
+    for (let i = 0; i < listaRespostasCertas.length; i++) {
+        if (element.parentNode.classList.contains(`pergunta${i}`)) {
+            if (listaRespostasCertas[i] == element.innerHTML) {
+                console.log("resposta certa!");
+            }
+        }
     }
 }
 
