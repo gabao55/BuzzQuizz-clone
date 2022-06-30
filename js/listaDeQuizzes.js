@@ -60,7 +60,7 @@ function responderQuizz(element) {
     iniciaTelaPaginaDeQuizz(quizzID);
 }
 
-// iniciaTelaListaDeQuizzes();
+iniciaTelaListaDeQuizzes();
 
 // Página de Quizz
 function iniciaTelaPaginaDeQuizz(element) {
@@ -85,11 +85,11 @@ function renderizarPerguntas(resposta) {
         estrutura.innerHTML += `
     <div class="pergunta">
             <div class="titulo-pergunta"><span>${perguntas[i].title}</span></div>
-            <div class="container-respostas">`;
+            <div class="container-respostas pergunta${i}"></div></div>`;
         for (let j = 0; j < perguntas[i].answers.length; j++) {
-            estrutura.innerHTML += `<div class="resposta"><img src="${respostasRandomizadas[j].image}">${respostasRandomizadas[j].text}</div>`;
-        }
-        estrutura.innerHTML += `</div></div>`;
+            let containerRespostas=document.querySelector(`.pergunta${i}`);
+            containerRespostas.innerHTML += `<div class="resposta"><img src="${respostasRandomizadas[j].image}">${respostasRandomizadas[j].text}</div>`;
+        }        
         respostasRandomizadas = [];
     }
 }
@@ -197,4 +197,4 @@ function renderizarCriarPerguntas() {
     }
 }
 
-// iniciaTelaCriarQuizz();
+//iniciaTelaCriarQuizz();

@@ -23,6 +23,7 @@ justify-content: center;
 align-items: center;
 color: white;
 word-wrap: break-word;
+text-align: center;
 }
 .pagina-de-quizz .pergunta{
     width: 90vw;
