@@ -98,4 +98,4 @@ function renderizarCriarPerguntas () {
     }
 }
 
-iniciaTelaCriarQuizz();
+// iniciaTelaCriarQuizz();

@@ -6,33 +6,15 @@
     align-items: center;
 }
 
-.inserir-infos {
-    width: calc(100% - 36px);
-    margin-top: 28px;
-    padding: 22px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    background-color: #FFFFFF;
+.criar-quizz h2 {
+    margin-top: 0;
 }
 
-.inserir-infos input {
-    width: 100%;
-    height: 46px;
-    margin: 0 18px 9px 18px;
-    border: 1px #D1D1D1 solid;
-    border-radius: 5px;
-}
-
-.inserir-infos input:last-child {
-    margin: 0 18px 0 18px;
-}
-
-.inserir-infos input::placeholder {
-    padding-left: 14px;
-    font-size: 19px;
-    font-weight: 400;
-    color: #BABABA;
+.criar-quizz h3 {
+    font-size: 20px;
+    font-weight: 700;
+    margin-bottom: 16px;
+    color: #000000;
 }
 
 .criar-quizz button {
@@ -47,6 +29,33 @@
     border: none;
     border-radius: 15px;
     cursor: pointer;
+}
+
+.inserir-infos {
+    width: calc(100% - 36px);
+    margin-top: 28px;
+    padding: 22px;
+    background-color: #FFFFFF;
+}
+
+.inserir-infos input {
+    width: 100%;
+    height: 46px;
+    margin: 0 auto 9px auto;
+    border: 1px #D1D1D1 solid;
+    border-radius: 5px;
+}
+
+.inserir-infos input:last-child {
+    margin-bottom: 0;
+}
+
+.inserir-infos input::placeholder {
+    padding-left: 14px;
+    font-size: 19px;
+    font-weight: 400;
+    font-style: italic;
+    color: #BABABA;
 }
 
 @media (min-width: 1100px) {
