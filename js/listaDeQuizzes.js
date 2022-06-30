@@ -55,12 +55,23 @@ function renderizarQuizz (quizz) {
 
 function responderQuizz (element) {
     quizzID = element.id;
-    element.parentNode.parentNode.remove();
+    element.parentNode.parentNode.remove(); 
+    iniciaTelaPaginaDeQuizz(quizzID);   
 }
 
 iniciaTelaListaDeQuizzes();
 
 // Página de Quizz
+function iniciaTelaPaginaDeQuizz(element){
+    let promess=axios.get(`https://mock-api.driven.com.br/api/v4/buzzquizz/quizzes/${element}`)
+    promess.then(renderizarBanner);    
+}
+function renderizarBanner(resposta){    
+   let estrutura = document.querySelector(".pagina-de-quizz")
+    estrutura.innerHTML+= `<div class="banner"><img src="${resposta.image}">
+            <span>${resposta.title}</span>
+        </div>`        
+}
 
 
 // Criação de Quizz
