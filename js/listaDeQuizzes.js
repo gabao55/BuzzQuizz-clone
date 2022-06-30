@@ -60,7 +60,7 @@ function responderQuizz(element) {
     iniciaTelaPaginaDeQuizz(quizzID);
 }
 
-// iniciaTelaListaDeQuizzes();
+//iniciaTelaListaDeQuizzes();
 
 // Página de Quizz
 function iniciaTelaPaginaDeQuizz(element) {
@@ -112,7 +112,9 @@ function respostasCorretas(element) {
     for (let i = 0; i < listaRespostasCertas.length; i++) {
         if (element.parentNode.classList.contains(`pergunta${i}`)) {
             if (listaRespostasCertas[i] == element.innerHTML) {
-                console.log("resposta certa!");
+                element.classList.add("certa");
+            }else {
+                element.classList.add("errada");
             }
         }
     }
