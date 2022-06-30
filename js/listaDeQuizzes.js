@@ -288,12 +288,15 @@ function fecharOutrasPerguntas(perguntaAtual) {
     if (perguntaAberta === perguntaAtual) {
         return false
     }
-    document.querySelector(".referencia-pergunta").innerHTML += `<ion-icon name="create-outline"></ion-icon>`;
-    perguntaAberta.classList.add("pergunta-fechada");
-    perguntaAberta.classList.remove("pergunta-aberta");
-    perguntaAberta.querySelector(".criar-pergunta").classList.add("display-none");
-    perguntaAberta.querySelector(".criar-resposta-correta").classList.add("display-none");
-    perguntaAberta.querySelector(".criar-respostas-incorretas").classList.add("display-none");
+
+    if (perguntaAberta) {
+        perguntaAberta.querySelector(".referencia-pergunta").innerHTML += `<ion-icon name="create-outline"></ion-icon>`;
+        perguntaAberta.classList.add("pergunta-fechada");
+        perguntaAberta.classList.remove("pergunta-aberta");
+        perguntaAberta.querySelector(".criar-pergunta").classList.add("display-none");
+        perguntaAberta.querySelector(".criar-resposta-correta").classList.add("display-none");
+        perguntaAberta.querySelector(".criar-respostas-incorretas").classList.add("display-none");
+    }
 
     return true
 }
