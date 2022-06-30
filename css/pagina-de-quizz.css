@@ -67,7 +67,7 @@ text-align: center;
     width: 42vw;
     height: 30vw;
 }
-.respondida{
+.respondida{    
     opacity: 0.3;
     pointer-events: none;  
 }

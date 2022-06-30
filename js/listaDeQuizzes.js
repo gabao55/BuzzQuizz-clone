@@ -60,7 +60,7 @@ function responderQuizz(element) {
     iniciaTelaPaginaDeQuizz(quizzID);
 }
 
-iniciaTelaListaDeQuizzes();
+//iniciaTelaListaDeQuizzes();
 
 // Página de Quizz
 function iniciaTelaPaginaDeQuizz(element) {
@@ -111,9 +111,12 @@ function adicionarClickRespostas() {
 function respostasCorretas(element) {
     for (let i = 0; i < listaRespostasCertas.length; i++) {
         if (element.parentNode.classList.contains(`pergunta${i}`)) {
-            console.log(element.parentNode);
+        element.parentNode.querySelectorAll(".resposta").forEach(obj =>{
+            obj.classList.add("respondida");
+        })   
+        element.classList.add("selecionada");     
             if (listaRespostasCertas[i] == element.innerHTML) {
-                element.classList.add("certa");
+                element.classList.add("certa");                
             }else {
                 element.classList.add("errada");
             }
