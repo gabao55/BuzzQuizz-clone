@@ -1,3 +1,4 @@
+let URLAPI="https://mock-api.driven.com.br/api/v3/buzzquizz/"
 // Listagem de Quizz
 
 let quizzID;
@@ -16,7 +17,7 @@ function iniciaTelaListaDeQuizzes() {
 }
 
 function consultarQuizzes () {
-    const promessa = axios.get("https://mock-api.driven.com.br/api/v4/buzzquizz/quizzes");
+    const promessa = axios.get(`${URLAPI}quizzes`);
     promessa.catch(erroAoListarQuizzes);
     promessa.then(listarQuizzes);
 }
@@ -63,14 +64,18 @@ iniciaTelaListaDeQuizzes();
 
 // Página de Quizz
 function iniciaTelaPaginaDeQuizz(element){
-    let promess=axios.get(`https://mock-api.driven.com.br/api/v4/buzzquizz/quizzes/${element}`)
+    let promess=axios.get(`${URLAPI}quizzes/${element}`)
     promess.then(renderizarBanner);    
 }
-function renderizarBanner(resposta){    
+function renderizarBanner(resposta){      
    let estrutura = document.querySelector(".pagina-de-quizz")
-    estrutura.innerHTML+= `<div class="banner"><img src="${resposta.image}">
-            <span>${resposta.title}</span>
-        </div>`        
+    estrutura.innerHTML+= `<div class="banner"><img src="${resposta.data.image}">
+            <span>${resposta.data.title}</span>
+        </div>` 
+    renderizarPerguntas(resposta);       
+}
+function renderizarPerguntas(){
+
 }
 
 
