@@ -60,7 +60,7 @@ function responderQuizz(element) {
     iniciaTelaPaginaDeQuizz(quizzID);
 }
 
-iniciaTelaListaDeQuizzes();
+// iniciaTelaListaDeQuizzes();
 
 // Página de Quizz
 function iniciaTelaPaginaDeQuizz(element) {
