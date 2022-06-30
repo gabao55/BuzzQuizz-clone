@@ -60,7 +60,7 @@ function responderQuizz(element) {
     iniciaTelaPaginaDeQuizz(quizzID);
 }
 
-iniciaTelaListaDeQuizzes();
+// iniciaTelaListaDeQuizzes();
 
 // Página de Quizz
 function iniciaTelaPaginaDeQuizz(element) {
@@ -215,10 +215,81 @@ function validarQtdNiveis(qtdNiveis) {
 }
 
 function renderizarCriarPerguntas() {
-    document.querySelector(".criar-quizz").innerHTML = "";
-    for (let i = 0; i < numeroDePerguntas; i++) {
-        console.log(i);
+    let paginaCriarQuizz = document.querySelector(".criar-quizz");
+    paginaCriarQuizz.innerHTML = `<h2>Crie suas perguntas</h2>`;
+
+    for (let i = 1; i <= numeroDePerguntas ; i++) {
+        renderizarCriarPergunta(paginaCriarQuizz, i);
     }
+
+    paginaCriarQuizz.innerHTML += "<button>Prosseguir para criar níveis</button>"
 }
 
-//iniciaTelaCriarQuizz();
+function renderizarCriarPergunta(element, numeroDaPergunta) {
+    element.innerHTML += `
+        <div class="inserir-infos pergunta-fechada" onclick="editarPergunta(this);">
+            <div>
+                <div class="referencia-pergunta">
+                    <h3>Pergunta ${numeroDaPergunta}</h3>
+                    <ion-icon name="create-outline"></ion-icon>
+                </div>
+                <div class="criar-pergunta display-none">
+                    <input type="text" placeholder="Texto da pergunta" />
+                    <input type="text" placeholder="Cor de fundo da pergunta" />
+                </div>
+                <div class="criar-resposta-correta display-none">
+                    <h3>Resposta correta</h3>
+                    <input type="text" placeholder="Resposta correta" />
+                    <input type="url" placeholder="URL da imagem" />
+                </div>
+                <div class="criar-respostas-incorretas display-none">
+                    <h3>Respostas incorretas</h3>
+                    <div class="criar-resposta-incorreta">
+                        <input type="text" placeholder="Resposta incorreta 1" />
+                        <input type="url" placeholder="URL da imagem 1" />
+                    </div>
+                    <div class="criar-resposta-incorreta">
+                        <input type="text" placeholder="Resposta incorreta 2" />
+                        <input type="url" placeholder="URL da imagem 2" />
+                    </div>
+                    <div class="criar-resposta-incorreta">
+                        <input type="text" placeholder="Resposta incorreta 3" />
+                        <input type="url" placeholder="URL da imagem 3" />
+                    </div>
+                </div>
+            </div>
+        </div>
+    `
+}
+
+function editarPergunta (element) {
+    let temPerguntaAberta = fecharOutrasPerguntas(element);
+    if (!temPerguntaAberta) {
+        return
+    }
+
+    element.querySelector("ion-icon").remove();
+    element.classList.remove("pergunta-fechada");
+    element.classList.add("pergunta-aberta");
+    element.querySelectorAll(".display-none").forEach(
+        (e) => {e.classList.remove("display-none")}
+    );
+}
+
+function fecharOutrasPerguntas(perguntaAtual) {
+    let perguntaAberta = document.querySelector(".pergunta-aberta");
+
+    if (perguntaAberta === perguntaAtual) {
+        return false
+    }
+    document.querySelector(".referencia-pergunta").innerHTML += `<ion-icon name="create-outline"></ion-icon>`;
+    perguntaAberta.classList.add("pergunta-fechada");
+    perguntaAberta.classList.remove("pergunta-aberta");
+    perguntaAberta.querySelector(".criar-pergunta").classList.add("display-none");
+    perguntaAberta.querySelector(".criar-resposta-correta").classList.add("display-none");
+    perguntaAberta.querySelector(".criar-respostas-incorretas").classList.add("display-none");
+
+    return true
+}
+
+iniciaTelaCriarQuizz();
