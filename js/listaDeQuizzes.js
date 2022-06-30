@@ -53,8 +53,7 @@ function renderizarQuizz (quizz) {
 function responderQuizz (element) {
     let quizz = element;
     quizzID = quizz.id;
-    quizz.parentNode.parentNode.remove();
-    // TODO: Ir para a próxima página de responder quizz
+    quizz.parentNode.parentNode.remove();    
 }
 
 iniciaTelaListaDeQuizzes();

@@ -1,7 +1,6 @@
-import defaultExport,* as Idquizz from "listaDeQuizzes.js"
-
-console.log(Idquizz);
-/*function responderQuizz(quizz){
-let screen2=document.querySelector("lista-quizzes")
-
-}*/
+let quizzID;
+function responderQuizz (element) {
+    let quizz = element;
+    quizzID = quizz.id;
+    quizz.parentNode.parentNode.remove();
+}
