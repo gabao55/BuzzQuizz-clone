@@ -1,4 +1,4 @@
-let URLAPI = "https://mock-api.driven.com.br/api/v3/buzzquizz/"
+let URLAPI = "https://mock-api.driven.com.br/api/v7/buzzquizz/"
 // Listagem de Quizz
 
 let quizzID;
@@ -60,7 +60,7 @@ function responderQuizz(element) {
     iniciaTelaPaginaDeQuizz(quizzID);
 }
 
-// iniciaTelaListaDeQuizzes();
+iniciaTelaListaDeQuizzes();
 
 // Página de Quizz
 function iniciaTelaPaginaDeQuizz(element) {
@@ -111,8 +111,11 @@ function adicionarClickRespostas() {
 function respostasCorretas(element) {
     for (let i = 0; i < listaRespostasCertas.length; i++) {
         if (element.parentNode.classList.contains(`pergunta${i}`)) {
+            console.log(element.parentNode);
             if (listaRespostasCertas[i] == element.innerHTML) {
-                console.log("resposta certa!");
+                element.classList.add("certa");
+            }else {
+                element.classList.add("errada");
             }
         }
     }

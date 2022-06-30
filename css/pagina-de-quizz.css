@@ -67,6 +67,20 @@ text-align: center;
     width: 42vw;
     height: 30vw;
 }
+.respondida{
+    opacity: 0.3;
+    pointer-events: none;  
+}
+.selecionada{
+    opacity: 1;
+}
+.errada{
+    color: #FF4B4B;
+}
+.certa{    
+    color: #009C22;
+}
+
 @media (min-width:759px) {
     .banner span{
         font-size: 39px;
