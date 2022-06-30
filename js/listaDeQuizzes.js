@@ -1,4 +1,4 @@
-let URLAPI="https://mock-api.driven.com.br/api/v3/buzzquizz/"
+let URLAPI = "https://mock-api.driven.com.br/api/v3/buzzquizz/"
 // Listagem de Quizz
 
 let quizzID;
@@ -16,23 +16,23 @@ function iniciaTelaListaDeQuizzes() {
     consultarQuizzes();
 }
 
-function consultarQuizzes () {
+function consultarQuizzes() {
     const promessa = axios.get(`${URLAPI}quizzes`);
     promessa.catch(erroAoListarQuizzes);
     promessa.then(listarQuizzes);
 }
 
-function erroAoListarQuizzes (error) {
+function erroAoListarQuizzes(error) {
     alert("Erro ao carregar aplicação.");
     window.reload();
 }
 
 function listarQuizzes(resposta) {
-    for (let i = 0 ; i < resposta.data.length ; i ++) {
+    for (let i = 0; i < resposta.data.length; i++) {
         renderizarQuizz(resposta.data[i]);
     }
 
-    document.querySelectorAll(".quizz").forEach( obj => {
+    document.querySelectorAll(".quizz").forEach(obj => {
         obj.addEventListener(
             "click",
             () => {
@@ -42,7 +42,7 @@ function listarQuizzes(resposta) {
     });
 }
 
-function renderizarQuizz (quizz) {
+function renderizarQuizz(quizz) {
     let listaQuizzes = document.querySelector(".quizzes");
     const quizzAtual = `
         <div class="quizz" id="${quizz.id}">
@@ -54,28 +54,44 @@ function renderizarQuizz (quizz) {
     listaQuizzes.innerHTML += quizzAtual;
 }
 
-function responderQuizz (element) {
+function responderQuizz(element) {
     quizzID = element.id;
-    element.parentNode.parentNode.remove(); 
-    iniciaTelaPaginaDeQuizz(quizzID);   
+    element.parentNode.parentNode.remove();
+    iniciaTelaPaginaDeQuizz(quizzID);
 }
 
 iniciaTelaListaDeQuizzes();
 
 // Página de Quizz
-function iniciaTelaPaginaDeQuizz(element){
-    let promess=axios.get(`${URLAPI}quizzes/${element}`)
-    promess.then(renderizarBanner);    
+function iniciaTelaPaginaDeQuizz(element) {
+    let promess = axios.get(`${URLAPI}quizzes/${element}`)
+    promess.then(renderizarBanner);
 }
-function renderizarBanner(resposta){      
-   let estrutura = document.querySelector(".pagina-de-quizz")
-    estrutura.innerHTML+= `<div class="banner"><img src="${resposta.data.image}">
+function renderizarBanner(resposta) {
+    let estrutura = document.querySelector(".pagina-de-quizz")
+    estrutura.innerHTML += `<div class="banner"><img src="${resposta.data.image}">
             <span>${resposta.data.title}</span>
-        </div>` 
-    renderizarPerguntas(resposta);       
+        </div>`
+    renderizarPerguntas(resposta.data.questions);
 }
-function renderizarPerguntas(){
-
+function renderizarPerguntas(resposta) {
+    let perguntas = resposta;
+    let estrutura = document.querySelector(".pagina-de-quizz");
+    let respostasRandomizadas = [];
+    for (let i = 0; i < perguntas.length; i++) {
+        respostasRandomizadas = perguntas[i].answers.sort(function () {
+            return Math.random() - 0.5
+        })
+        estrutura.innerHTML += `
+    <div class="pergunta">
+            <div class="titulo-pergunta"><span>${perguntas[i].title}</span></div>
+            <div class="container-respostas">`;
+        for (let j = 0; j < perguntas[i].answers.length; j++) {
+            estrutura.innerHTML += `<div class="resposta"><img src="${respostasRandomizadas[j].image}">${respostasRandomizadas[j].text}</div>`;
+        }
+        estrutura.innerHTML += `</div></div>`;
+        respostasRandomizadas = [];
+    }
 }
 
 
@@ -85,7 +101,7 @@ let quizz = {};
 let numeroDePerguntas;
 let numeroDeNiveis;
 
-function iniciaTelaCriarQuizz () {
+function iniciaTelaCriarQuizz() {
     const infosIniciais = `
         <h2>Comece pelo começo</h2>
         <div class="inserir-infos">
@@ -105,7 +121,7 @@ function iniciaTelaCriarQuizz () {
         .addEventListener("click", () => seguirParaCriarPerguntas());
 }
 
-function seguirParaCriarPerguntas () {
+function seguirParaCriarPerguntas() {
     let todosOsCampos = document.querySelectorAll("input");
     let title = todosOsCampos[0].value;
     let image = todosOsCampos[1].value;
@@ -128,17 +144,17 @@ function seguirParaCriarPerguntas () {
     renderizarCriarPerguntas();
 }
 
-function validarCampos (title, image, qtdPerguntas, qtdNiveis) {
+function validarCampos(title, image, qtdPerguntas, qtdNiveis) {
     if (!validarTitle(title) || !validarImage(image)
-      || !validarQtdPerguntas(qtdPerguntas)
-      || !validarQtdNiveis(qtdNiveis)) {
+        || !validarQtdPerguntas(qtdPerguntas)
+        || !validarQtdNiveis(qtdNiveis)) {
         return false
     }
 
     return true
 }
 
-function validarTitle (title) {
+function validarTitle(title) {
     if (title.length < 20 || title.length > 65) {
         return false
     }
@@ -146,19 +162,19 @@ function validarTitle (title) {
     return true
 }
 
-function validarImage (image) {
+function validarImage(image) {
     let url;
 
     try {
         url = new URL(image);
     } catch (_) {
-    return false;  
+        return false;
     }
 
     return true
 }
 
-function validarQtdPerguntas (qtdPerguntas) {
+function validarQtdPerguntas(qtdPerguntas) {
     if (qtdPerguntas < 3) {
         return false
     }
@@ -166,7 +182,7 @@ function validarQtdPerguntas (qtdPerguntas) {
     return true
 }
 
-function validarQtdNiveis (qtdNiveis) {
+function validarQtdNiveis(qtdNiveis) {
     if (qtdNiveis < 2) {
         return false
     }
@@ -174,9 +190,9 @@ function validarQtdNiveis (qtdNiveis) {
     return true
 }
 
-function renderizarCriarPerguntas () {
+function renderizarCriarPerguntas() {
     document.querySelector(".criar-quizz").innerHTML = "";
-    for (let i = 0 ; i < numeroDePerguntas ; i ++) {
+    for (let i = 0; i < numeroDePerguntas; i++) {
         console.log(i);
     }
 }
