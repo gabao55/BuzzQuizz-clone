@@ -4,24 +4,26 @@ let URLAPI = "https://mock-api.driven.com.br/api/v7/buzzquizz/"
 let quizzID;
 
 function iniciaTelaListaDeQuizzes() {
-   // const quizzesUsuarioSerializado=localStorage.getItem("lista");
-   // const quizzesUsuario = JSON.parse(quizzesUsuarioSerializado);
+    // const quizzesUsuarioSerializado=localStorage.getItem("lista");
+    // const quizzesUsuario = JSON.parse(quizzesUsuarioSerializado);
     let listaDeQuizzes = document.querySelector(".lista-quizzes");
-   /* if (quizzesUsuario.length===0){*/
-        listaDeQuizzes.innerHTML+=`<div class="secao-criar-quizz">
+   /* if (quizzesUsuario.length === 0) {
+        listaDeQuizzes.innerHTML += `<div class="secao-criar-quizz">
         <span>Você não criou nenhum quizz ainda :(</span>
         <div class="botao-criar-quizz" onclick="iniciaTelaCriarQuizz()">Criar Quizz</div>
     </div>`
-    /*}else{        
-        listaDeQuizzes.innerHTML+=`<div class="botao-add-quizz" onclick="iniciaTelaCriarQuizz()">+</div>
-    </div>`
+    } else {
+        listaDeQuizzes.innerHTML += `<div class="quizzes-do-usuario"><h2>Seus Quizzes  </h2><div class="botao-add-quizz" onclick="iniciaTelaCriarQuizz()">+</div></div></div>`
+        for (let i = 0; i < quizzesUsuario.length; i++) {
+
+        }
     }*/
     const estrutura = `
         <h2>Todos os Quizzes</h2>
         <div class="quizzes">
         </div>
-    `    
-    
+    `
+
     listaDeQuizzes.innerHTML += estrutura;
 
     consultarQuizzes();
@@ -120,7 +122,7 @@ function adicionarClickRespostas() {
     })
 }
 let perguntaAtual;
-let respostasCorretas=0;
+let respostasCorretas = 0;
 function analisarRespostas(element) {
     for (let i = 0; i < listaRespostasCertas.length; i++) {
         if (element.parentNode.classList.contains(`pergunta${i}`)) {
@@ -131,7 +133,7 @@ function analisarRespostas(element) {
             element.classList.remove("respondida");
             if (listaRespostasCertas[i] == element.innerHTML) {
                 element.classList.add("certa");
-                respostasCorretas++;                
+                respostasCorretas++;
             } else {
                 element.classList.add("errada");
             }
@@ -148,14 +150,14 @@ function analisarRespostas(element) {
 }
 let quantRespondida;
 function proximaPergunta() {
-quantRespondida=document.querySelectorAll(".certa");
-console.log(quantRespondida);
-    if (quantRespondida.length<listaRespostasCertas.length){
-    document.querySelector(`.pergunta${perguntaAtual + 1}`).parentNode.scrollIntoView();   
-}else{
-    console.log(quantRespondida.length);
-    console.log(respostasCorretas);
-}
+    quantRespondida = document.querySelectorAll(".certa");
+    console.log(quantRespondida);
+    if (quantRespondida.length < listaRespostasCertas.length) {
+        document.querySelector(`.pergunta${perguntaAtual + 1}`).parentNode.scrollIntoView();
+    } else {
+        console.log(quantRespondida.length);
+        console.log(respostasCorretas);
+    }
 }
 
 // Criação de Quizz
@@ -165,8 +167,8 @@ let numeroDePerguntas;
 let numeroDeNiveis;
 
 function iniciaTelaCriarQuizz() {
-    document.querySelector(".pagina-de-quizz").innerHTML=""
-    document.querySelector(".lista-quizzes").innerHTML=""
+    document.querySelector(".pagina-de-quizz").innerHTML = ""
+    document.querySelector(".lista-quizzes").innerHTML = ""
     const infosIniciais = `
         <h2>Comece pelo começo</h2>
         <div class="inserir-infos">
@@ -377,7 +379,7 @@ function seguirParaCriarNiveis() {
                     isCorrectAnswer: true
                 }
             )
-            numeroDeRespostasCorretas ++;
+            numeroDeRespostasCorretas++;
         } else {
             alert("Preencha os campos corretamente");
             return
@@ -396,7 +398,7 @@ function seguirParaCriarNiveis() {
                         isCorrectAnswer: false
                     }
                 );
-                numeroDeRespostasIncorretas ++;
+                numeroDeRespostasIncorretas++;
             } else if (textoRespostaIncorreta || urlRespostaIncorreta) {
                 alert("Preencha os campos corretamente");
                 return
@@ -429,7 +431,7 @@ function validarColor(color) {
         return false
     }
 
-    for (let i = 1; i < color.length ; i ++) {
+    for (let i = 1; i < color.length; i++) {
         if (!(/[a-zA-Z0-9]/).test(color[i])) {
             return false
         }
@@ -462,7 +464,7 @@ function validarPergunta(respostasCorretas, respostasIncorretas) {
     return true
 }
 
-function renderizarCriarNiveis () {
+function renderizarCriarNiveis() {
     let paginaCriarQuizz = document.querySelector(".criar-quizz");
     paginaCriarQuizz.innerHTML = `<h2>Agora, decida os níveis!</h2>`;
 
