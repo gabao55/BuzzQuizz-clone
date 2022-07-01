@@ -108,22 +108,34 @@ function adicionarClickRespostas() {
         );
     })
 }
+let perguntaAtual;
 function respostasCorretas(element) {
     for (let i = 0; i < listaRespostasCertas.length; i++) {
         if (element.parentNode.classList.contains(`pergunta${i}`)) {
-        element.parentNode.querySelectorAll(".resposta").forEach(obj =>{
-            obj.classList.add("respondida");
-        })   
-        element.classList.add("selecionada");     
+            perguntaAtual = i;
+            element.parentNode.querySelectorAll(".resposta").forEach(obj => {
+                obj.classList.add("respondida");
+            })
+            element.classList.remove("respondida");
             if (listaRespostasCertas[i] == element.innerHTML) {
-                element.classList.add("certa");                
-            }else {
+                element.classList.add("certa");
+            } else {
                 element.classList.add("errada");
             }
+            element.parentNode.querySelectorAll(".respondida").forEach(obj => {
+                if (listaRespostasCertas[i] == obj.innerHTML) {
+                    obj.classList.add("certa");
+                } else {
+                    obj.classList.add("errada");
+                }
+            })
+            setTimeout(proximaPergunta, 2000);
         }
     }
 }
-
+function proximaPergunta() {
+    document.querySelector(`.pergunta${perguntaAtual + 1}`).parentNode.scrollIntoView();
+}
 
 // Criação de Quizz
 
@@ -224,7 +236,7 @@ function renderizarCriarPerguntas() {
     let paginaCriarQuizz = document.querySelector(".criar-quizz");
     paginaCriarQuizz.innerHTML = `<h2>Crie suas perguntas</h2>`;
 
-    for (let i = 1; i <= numeroDePerguntas ; i++) {
+    for (let i = 1; i <= numeroDePerguntas; i++) {
         renderizarCriarPergunta(paginaCriarQuizz, i);
     }
 
@@ -268,7 +280,7 @@ function renderizarCriarPergunta(element, numeroDaPergunta) {
     `
 }
 
-function editarPergunta (element) {
+function editarPergunta(element) {
     let temPerguntaAberta = fecharOutrasPerguntas(element);
     if (!temPerguntaAberta) {
         return
@@ -278,7 +290,7 @@ function editarPergunta (element) {
     element.classList.remove("pergunta-fechada");
     element.classList.add("pergunta-aberta");
     element.querySelectorAll(".display-none").forEach(
-        (e) => {e.classList.remove("display-none")}
+        (e) => { e.classList.remove("display-none") }
     );
 }
 
