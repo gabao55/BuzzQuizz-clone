@@ -8,10 +8,10 @@ function iniciaTelaListaDeQuizzes() {
     // const quizzesUsuario = JSON.parse(quizzesUsuarioSerializado);
     let listaDeQuizzes = document.querySelector(".lista-quizzes");
    /* if (quizzesUsuario.length === 0) {
-        listaDeQuizzes.innerHTML += `<div class="secao-criar-quizz">
+        */listaDeQuizzes.innerHTML += `<div class="secao-criar-quizz">
         <span>Você não criou nenhum quizz ainda :(</span>
         <div class="botao-criar-quizz" onclick="iniciaTelaCriarQuizz()">Criar Quizz</div>
-    </div>`
+    </div>`/*
     } else {
         listaDeQuizzes.innerHTML += `<div class="quizzes-do-usuario"><h2>Seus Quizzes  </h2><div class="botao-add-quizz" onclick="iniciaTelaCriarQuizz()">+</div></div></div>`
         for (let i = 0; i < quizzesUsuario.length; i++) {
