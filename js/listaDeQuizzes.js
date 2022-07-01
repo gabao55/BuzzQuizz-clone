@@ -473,5 +473,26 @@ function validarPergunta(respostasCorretas, respostasIncorretas) {
 function renderizarCriarNiveis() {
     let paginaCriarQuizz = document.querySelector(".criar-quizz");
     paginaCriarQuizz.innerHTML = `<h2>Agora, decida os níveis!</h2>`;
-
+    for (let i = 1; i <= numeroDeNiveis; i++) {
+        renderizarCriarNivel(paginaCriarQuizz, i);
+    }
+    paginaCriarQuizz.innerHTML += `<button onclick="seguirParaFinalizarQuizz();">Finalizar Quizz</button>`;
+}
+renderizarCriarNivel(element, numeroDoQuizz){
+    element.innerHTML += `
+        <div class="inserir-infos pergunta-fechada" onclick="editarNivel(this);">
+            <div>
+                <div class="referencia-pergunta">
+                    <h3>Nível ${numeroDoQuizz}</h3>
+                    <ion-icon name="create-outline"></ion-icon>
+                </div>
+                <div class="criar-pergunta display-none">
+                    <input type="text" placeholder="Título do Nível" />
+                    <input type="text" placeholder="% de acerto mínima" />     
+                    <input type="url" placeholder="URL da imagem" />
+                    <input type="url" placeholder="Descrição do nível" />
+                </div>             
+                </div>
+            </div>        
+    `
 }
