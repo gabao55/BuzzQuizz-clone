@@ -238,7 +238,7 @@ function validarImage(image) {
 }
 
 function validarQtdPerguntas(qtdPerguntas) {
-    if (qtdPerguntas < 0) { // TODO: Trocar 0 por 3 nessa linha
+    if (qtdPerguntas < 3) {
         return false
     }
 
@@ -333,11 +333,16 @@ function fecharOutrasPerguntas(perguntaAtual) {
 
     return true
 }
+
 // TODO: Refatorar essa função
 function seguirParaCriarNiveis() {
     quizz.questions = [];
+    let questions = [];
 
     let perguntas = document.querySelectorAll(".inserir-infos");
+
+    let numeroDeRespostasIncorretas = 0;
+    let numeroDeRespostasCorretas = 0;
 
     perguntas.forEach(obj => {
         let question = {
@@ -358,11 +363,9 @@ function seguirParaCriarNiveis() {
 
         question.answers = [];
 
-        // TODO: Continuar debugando daqui
-
         let respostaCorreta = obj.querySelector(".criar-resposta-correta");
-        let textoRespostaCorreta = respostaCorreta.querySelector("input[type=text]");
-        let urlRespostaCorreta = respostaCorreta.querySelector("input[type=url]");
+        let textoRespostaCorreta = respostaCorreta.querySelector("input[type=text]").value;
+        let urlRespostaCorreta = respostaCorreta.querySelector("input[type=url]").value;
 
         if (validarTextoEUrl(textoRespostaCorreta, urlRespostaCorreta)) {
             question.answers.push(
@@ -372,8 +375,8 @@ function seguirParaCriarNiveis() {
                     isCorrectAnswer: true
                 }
             )
+            numeroDeRespostasCorretas ++;
         } else {
-            console.log("O problema está aqui");
             alert("Preencha os campos corretamente");
             return
         }
@@ -390,22 +393,23 @@ function seguirParaCriarNiveis() {
                         image: urlRespostaIncorreta,
                         isCorrectAnswer: false
                     }
-                )
-            } else {
+                );
+                numeroDeRespostasIncorretas ++;
+            } else if (textoRespostaIncorreta || urlRespostaIncorreta) {
                 alert("Preencha os campos corretamente");
                 return
             }
         });
 
-        // if (validarPerguntas(question)) {
-        //     quizz.questions = question;
-        // } else {
-        //     alert("Preencha os campos corretamente");
-        //     return
-        // }
+        if (validarPergunta(numeroDeRespostasCorretas, numeroDeRespostasIncorretas)) {
+            questions.push(question);
+        } else {
+            alert("Preencha os campos corretamente");
+            return
+        }
     });
 
-    console.log(quizz);
+    quizz.questions = questions;
 }
 
 function validarTitleEColor(title, color) {
@@ -441,6 +445,14 @@ function validarTextoEUrl(texto, url) {
         imagem = new URL(url);
     } catch (_) {
         return false;
+    }
+
+    return true
+}
+
+function validarPergunta(respostasCorretas, respostasIncorretas) {
+    if (respostasCorretas === 0 || respostasIncorretas === 0) {
+        return false
     }
 
     return true
