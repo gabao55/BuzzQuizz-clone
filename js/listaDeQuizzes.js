@@ -60,7 +60,7 @@ function responderQuizz(element) {
     iniciaTelaPaginaDeQuizz(quizzID);
 }
 
-iniciaTelaListaDeQuizzes();
+// iniciaTelaListaDeQuizzes();
 
 // Página de Quizz
 function iniciaTelaPaginaDeQuizz(element) {
@@ -155,7 +155,7 @@ function seguirParaCriarPerguntas() {
     let qtdPerguntas = todosOsCampos[2].value;
     let qtdNiveis = todosOsCampos[3].value;
 
-    if (!validarCampos(title, image, qtdPerguntas, qtdNiveis)) {
+    if (!validarCamposInfosBasicas(title, image, qtdPerguntas, qtdNiveis)) {
         alert("Por favor, preencha os campos corretamente");
         return
     }
@@ -171,7 +171,7 @@ function seguirParaCriarPerguntas() {
     renderizarCriarPerguntas();
 }
 
-function validarCampos(title, image, qtdPerguntas, qtdNiveis) {
+function validarCamposInfosBasicas(title, image, qtdPerguntas, qtdNiveis) {
     if (!validarTitle(title) || !validarImage(image)
         || !validarQtdPerguntas(qtdPerguntas)
         || !validarQtdNiveis(qtdNiveis)) {
@@ -202,7 +202,7 @@ function validarImage(image) {
 }
 
 function validarQtdPerguntas(qtdPerguntas) {
-    if (qtdPerguntas < 3) {
+    if (qtdPerguntas < 0) { // TODO: Trocar 0 por 3 nessa linha
         return false
     }
 
@@ -225,7 +225,7 @@ function renderizarCriarPerguntas() {
         renderizarCriarPergunta(paginaCriarQuizz, i);
     }
 
-    paginaCriarQuizz.innerHTML += "<button>Prosseguir para criar níveis</button>"
+    paginaCriarQuizz.innerHTML += `<button onclick="seguirParaCriarNiveis();">Prosseguir para criar níveis</button>`;
 }
 
 function renderizarCriarPergunta(element, numeroDaPergunta) {
@@ -293,6 +293,119 @@ function fecharOutrasPerguntas(perguntaAtual) {
         perguntaAberta.querySelector(".criar-pergunta").classList.add("display-none");
         perguntaAberta.querySelector(".criar-resposta-correta").classList.add("display-none");
         perguntaAberta.querySelector(".criar-respostas-incorretas").classList.add("display-none");
+    }
+
+    return true
+}
+
+// TODO: Refatorar essa função
+function seguirParaCriarNiveis() {
+    quizz.questions = [];
+
+    let perguntas = document.querySelectorAll(".inserir-infos");
+
+    perguntas.forEach(obj => {
+        let question = {
+            title: null,
+            color: null,
+            answers: null
+        };
+        let title = obj.querySelector(".criar-pergunta input").value;
+        let color = obj.querySelector(".criar-pergunta input:last-child").value;
+
+        if (validarTitleEColor(title, color)) {
+            question.title = title;
+            question.color = color;
+        } else {
+            alert("Preencha os campos corretamente");
+            return
+        }
+
+        question.answers = [];
+
+        // TODO: Continuar debugando daqui
+
+        let respostaCorreta = obj.querySelector(".criar-resposta-correta");
+        let textoRespostaCorreta = respostaCorreta.querySelector("input[type=text]");
+        let urlRespostaCorreta = respostaCorreta.querySelector("input[type=url]");
+
+        if (validarTextoEUrl(textoRespostaCorreta, urlRespostaCorreta)) {
+            question.answers.push(
+                {
+                    text: textoRespostaCorreta,
+                    image: urlRespostaCorreta,
+                    isCorrectAnswer: true
+                }
+            )
+        } else {
+            console.log("O problema está aqui");
+            alert("Preencha os campos corretamente");
+            return
+        }
+
+        let respostasIncorretas = obj.querySelectorAll(".criar-resposta-incorreta");
+        respostasIncorretas.forEach(respostaIncorreta => {
+            let textoRespostaIncorreta = respostaIncorreta.querySelector("input[type=text]").value;
+            let urlRespostaIncorreta = respostaIncorreta.querySelector("input[type=url]").value;
+
+            if (validarTextoEUrl(textoRespostaIncorreta, urlRespostaIncorreta)) {
+                question.answers.push(
+                    {
+                        text: textoRespostaIncorreta,
+                        image: urlRespostaIncorreta,
+                        isCorrectAnswer: false
+                    }
+                )
+            } else {
+                alert("Preencha os campos corretamente");
+                return
+            }
+        });
+
+        // if (validarPerguntas(question)) {
+        //     quizz.questions = question;
+        // } else {
+        //     alert("Preencha os campos corretamente");
+        //     return
+        // }
+    });
+
+    console.log(quizz);
+}
+
+function validarTitleEColor(title, color) {
+    if (title.length < 20 || !validarColor(color)) {
+        return false
+    }
+
+    return true
+}
+
+function validarColor(color) {
+    if (color[0] !== "#" || color.length !== 7) {
+        return false
+    }
+
+    for (let i = 1; i < color.length ; i ++) {
+        if (!(/[a-zA-Z0-9]/).test(color[i])) {
+            return false
+        }
+    }
+
+    return true
+}
+
+function validarTextoEUrl(texto, url) {
+    if (texto.length <= 0) {
+        return false
+    }
+
+    let imagem;
+
+    try {
+        imagem = new URL(url);
+    } catch (_) {
+        return false;
     }
 
     return true
