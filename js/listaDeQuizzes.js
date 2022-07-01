@@ -4,13 +4,15 @@ let URLAPI = "https://mock-api.driven.com.br/api/v7/buzzquizz/"
 let quizzID;
 
 function iniciaTelaListaDeQuizzes() {
+   // const quizzesUsuarioSerializado=localStorage.getItem("lista");
+   // const quizzesUsuario = JSON.parse(quizzesUsuarioSerializado);
     let listaDeQuizzes = document.querySelector(".lista-quizzes");
-   /* if (quantQuizzesUsuario===0){*/
+   /* if (quizzesUsuario.length===0){*/
         listaDeQuizzes.innerHTML+=`<div class="secao-criar-quizz">
         <span>Você não criou nenhum quizz ainda :(</span>
         <div class="botao-criar-quizz" onclick="iniciaTelaCriarQuizz()">Criar Quizz</div>
     </div>`
-    /*}else{
+    /*}else{        
         listaDeQuizzes.innerHTML+=`<div class="botao-add-quizz" onclick="iniciaTelaCriarQuizz()">+</div>
     </div>`
     }*/
