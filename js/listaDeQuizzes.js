@@ -412,6 +412,8 @@ function seguirParaCriarNiveis() {
     });
 
     quizz.questions = questions;
+
+    renderizarCriarNiveis();
 }
 
 function validarTitleEColor(title, color) {
@@ -458,4 +460,10 @@ function validarPergunta(respostasCorretas, respostasIncorretas) {
     }
 
     return true
+}
+
+function renderizarCriarNiveis () {
+    let paginaCriarQuizz = document.querySelector(".criar-quizz");
+    paginaCriarQuizz.innerHTML = `<h2>Agora, decida os níveis!</h2>`;
+
 }
