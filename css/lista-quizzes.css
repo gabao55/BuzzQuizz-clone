@@ -1,6 +1,46 @@
 .lista-quizzes {
-    margin-top: 107px;
+    margin-top: 38px;
     width: 340px;  
+}
+.secao-criar-quizz{
+width: 90%;
+height: 181px;
+display: flex;
+flex-direction: column;
+align-items: center;
+justify-content: space-around;
+border: dashed 1px rgb(212, 212, 212);
+margin-top: 100px;
+border-radius: 5px;
+}
+.secao-criar-quizz span{
+    font-size: 20px;
+    color:#B9B9B9;
+    text-align: center;
+width: 250px;
+}
+.botao-criar-quizz{
+    width: 151px;
+    height: 40px;
+    color: #EC362D;
+    border-radius: 50px;
+    border: dashed 1px #EC362D;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.botao-add-quizz{
+    margin-top: 80px;
+    background-color: red;
+    width: 31px;
+    height: 31px;
+    color:white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: solid 0px red;
+    border-radius: 50%;
+    font-size: 30px;
 }
 
 .quizzes {

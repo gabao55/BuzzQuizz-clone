@@ -4,14 +4,23 @@ let URLAPI = "https://mock-api.driven.com.br/api/v7/buzzquizz/"
 let quizzID;
 
 function iniciaTelaListaDeQuizzes() {
+    let listaDeQuizzes = document.querySelector(".lista-quizzes");
+   /* if (quantQuizzesUsuario===0){*/
+        listaDeQuizzes.innerHTML+=`<div class="secao-criar-quizz">
+        <span>Você não criou nenhum quizz ainda :(</span>
+        <div class="botao-criar-quizz" onclick="iniciaTelaCriarQuizz()">Criar Quizz</div>
+    </div>`
+    /*}else{
+        listaDeQuizzes.innerHTML+=`<div class="botao-add-quizz" onclick="iniciaTelaCriarQuizz()">+</div>
+    </div>`
+    }*/
     const estrutura = `
         <h2>Todos os Quizzes</h2>
         <div class="quizzes">
         </div>
-    `
-
-    let paginaDeQuizzes = document.querySelector(".lista-quizzes");
-    paginaDeQuizzes.innerHTML += estrutura;
+    `    
+    
+    listaDeQuizzes.innerHTML += estrutura;
 
     consultarQuizzes();
 }
@@ -60,7 +69,7 @@ function responderQuizz(element) {
     iniciaTelaPaginaDeQuizz(quizzID);
 }
 
-//iniciaTelaListaDeQuizzes();
+iniciaTelaListaDeQuizzes();
 
 // Página de Quizz
 function iniciaTelaPaginaDeQuizz(element) {
@@ -78,9 +87,9 @@ let listaRespostasCertas = [];
 function renderizarPerguntas(resposta) {
     let perguntas = resposta;
     let estrutura = document.querySelector(".pagina-de-quizz");
-    let respostasRandomizadas = [];
+    let respostasAleatorias = [];
     for (let i = 0; i < perguntas.length; i++) {
-        respostasRandomizadas = perguntas[i].answers.sort(function () {
+        respostasAleatorias = perguntas[i].answers.sort(function () {
             return Math.random() - 0.5
         })
         estrutura.innerHTML += `
@@ -89,12 +98,12 @@ function renderizarPerguntas(resposta) {
             <div class="container-respostas pergunta${i}"></div></div>`;
         for (let j = 0; j < perguntas[i].answers.length; j++) {
             let containerRespostas = document.querySelector(`.pergunta${i}`);
-            containerRespostas.innerHTML += `<div class="resposta"><img src="${respostasRandomizadas[j].image}">${respostasRandomizadas[j].text}</div>`;
-            if (respostasRandomizadas[j].isCorrectAnswer === true) {
-                listaRespostasCertas[i] = `<img src="${respostasRandomizadas[j].image}">${respostasRandomizadas[j].text}`;
+            containerRespostas.innerHTML += `<div class="resposta"><img src="${respostasAleatorias[j].image}">${respostasAleatorias[j].text}</div>`;
+            if (respostasAleatorias[j].isCorrectAnswer === true) {
+                listaRespostasCertas[i] = `<img src="${respostasAleatorias[j].image}">${respostasAleatorias[j].text}`;
             }
         }
-        respostasRandomizadas = [];
+        respostasAleatorias = [];
     }
     adicionarClickRespostas();
 }
@@ -103,13 +112,14 @@ function adicionarClickRespostas() {
         obj.addEventListener(
             "click",
             () => {
-                respostasCorretas(obj);
+                analisarRespostas(obj);
             }
         );
     })
 }
 let perguntaAtual;
-function respostasCorretas(element) {
+let respostasCorretas=0;
+function analisarRespostas(element) {
     for (let i = 0; i < listaRespostasCertas.length; i++) {
         if (element.parentNode.classList.contains(`pergunta${i}`)) {
             perguntaAtual = i;
@@ -119,6 +129,7 @@ function respostasCorretas(element) {
             element.classList.remove("respondida");
             if (listaRespostasCertas[i] == element.innerHTML) {
                 element.classList.add("certa");
+                respostasCorretas++;                
             } else {
                 element.classList.add("errada");
             }
@@ -133,8 +144,16 @@ function respostasCorretas(element) {
         }
     }
 }
+let quantRespondida;
 function proximaPergunta() {
-    document.querySelector(`.pergunta${perguntaAtual + 1}`).parentNode.scrollIntoView();
+quantRespondida=document.querySelectorAll(".certa");
+console.log(quantRespondida);
+    if (quantRespondida.length<listaRespostasCertas.length){
+    document.querySelector(`.pergunta${perguntaAtual + 1}`).parentNode.scrollIntoView();   
+}else{
+    console.log(quantRespondida.length);
+    console.log(respostasCorretas);
+}
 }
 
 // Criação de Quizz
@@ -312,5 +331,3 @@ function fecharOutrasPerguntas(perguntaAtual) {
 
     return true
 }
-
-iniciaTelaCriarQuizz();
