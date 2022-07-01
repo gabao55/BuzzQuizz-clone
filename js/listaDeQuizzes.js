@@ -15,7 +15,13 @@ function iniciaTelaListaDeQuizzes() {
     } else {
         listaDeQuizzes.innerHTML += `<div class="quizzes-do-usuario"><h2>Seus Quizzes  </h2><div class="botao-add-quizz" onclick="iniciaTelaCriarQuizz()">+</div></div></div>`
         for (let i = 0; i < quizzesUsuario.length; i++) {
-
+listaDeQuizzes.innerHTML +=`
+        <div class="quizz" id="${listaDeQuizzes[i].id}">
+            <div class="gradient"></div>
+            <img src="${listaDeQuizzes[i].image}" />
+            <h3>${listaDeQuizzes[i].title}</h3>
+        </div>
+    `
         }
     }*/
     const estrutura = `
@@ -153,7 +159,7 @@ function proximaPergunta() {
     quantRespondida = document.querySelectorAll(".certa");
     console.log(quantRespondida);
     if (quantRespondida.length < listaRespostasCertas.length) {
-        document.querySelector(`.pergunta${perguntaAtual + 1}`).parentNode.scrollIntoView();
+        document.querySelector(`.pergunta${perguntaAtual + 1}`).parentNode.scrollIntoView({behavior:"smooth"});
     } else {
         console.log(quantRespondida.length);
         console.log(respostasCorretas);
