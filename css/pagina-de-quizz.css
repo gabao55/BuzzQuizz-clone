@@ -67,18 +67,17 @@ text-align: center;
     width: 42vw;
     height: 30vw;
 }
-.respondida{
+.respondida{    
     opacity: 0.3;
     pointer-events: none;  
 }
-.selecionada{
-    opacity: 1;
-}
 .errada{
-    color: #FF4B4B;
+    color: red;
+    pointer-events: none;    
 }
 .certa{    
-    color: #009C22;
+    color: green;
+    pointer-events: none;  
 }
 
 @media (min-width:759px) {
