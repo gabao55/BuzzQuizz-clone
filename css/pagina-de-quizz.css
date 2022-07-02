@@ -84,6 +84,11 @@ text-align: center;
     background-color: #EC362D;
 }
 
+.pagina-de-quizz .container-respostas .resultado {
+    width: 90vw;
+    height: auto;
+}
+
 .container-respostas .resultado img {
     width: 90vw;
     height: auto;
@@ -93,6 +98,39 @@ text-align: center;
     font-size: 17px;
     font-weight: 700;
     margin: 9px 0 0 0;
+    word-wrap: break-word;
+}
+
+.acoes {
+    margin-top: 34px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.acoes button {
+    width: 80%;
+    max-width: 370px;
+    height: 54px;
+    font-size: 18px;
+    font-weight: 400;
+    color: #FFF5F4;
+    background-color: #EC362D;
+    border: none;
+    border-radius: 15px;
+    cursor: pointer;
+}
+
+.acoes > div {
+    margin-top: 20px;
+    font-size: 21px;
+    line-height: 25px;
+    font-weight: 400;
+    color: #818181;
+    display: flex;
+    justify-content: center;
+    cursor: pointer;
+    
 }
 
 @media (min-width:759px) {
@@ -102,30 +140,63 @@ text-align: center;
     .pagina-de-quizz .pergunta{
         width: 688px;
         margin:0 auto;
-}
-.pagina-de-quizz .titulo-pergunta{   
-    width: 688px;
-    height: 137px;    
-    background-color: #A0438D;
-    font-size: 23px;
-}
-.pagina-de-quizz .titulo-pergunta span{
-    width: 80%;
-}
-.pagina-de-quizz .container-respostas{
-    display: flex;
-    width: 688px; 
-}
-.pagina-de-quizz .resposta img{
-    width: 329px;
-    height: 175px;
-}
-.pagina-de-quizz .resposta {
-    display: flex;
-    width: 329px;
-    flex-direction: column;
-    font-size: 20px;
-    line-height: 22px;
-    margin-top: 20px;
-}
+    }
+    .pagina-de-quizz .titulo-pergunta{   
+        width: 688px;
+        height: 137px;    
+        background-color: #A0438D;
+        font-size: 23px;
+    }
+    .pagina-de-quizz .titulo-pergunta span{
+        width: 80%;
+    }
+    .pagina-de-quizz .container-respostas{
+        display: flex;
+        width: 688px; 
+    }
+    .pagina-de-quizz .resposta img{
+        width: 329px;
+        height: 175px;
+    }
+    .pagina-de-quizz .resposta {
+        display: flex;
+        width: 329px;
+        flex-direction: column;
+        font-size: 20px;
+        line-height: 22px;
+        margin-top: 20px;
+    }
+
+    .pagina-de-quizz .titulo-resultado {
+        background-color: #EC362D;
+    }
+
+    .pagina-de-quizz .container-respostas .resultado {
+        width: 100%;
+        height: auto;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+    }
+
+    .container-respostas .resultado img {
+        width: 364px;
+        height: auto;
+    }
+
+    .resultado p {
+        width: 300px;
+        font-size: 17px;
+        font-weight: 700;
+        margin: 0;
+        word-wrap: break-word;
+    }
+
+    .acoes button {
+        margin-top: 57px;
+    }
+
+    .acoes > div {
+        margin-top: 30px;
+    }
 }

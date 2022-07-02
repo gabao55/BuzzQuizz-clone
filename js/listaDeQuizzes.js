@@ -170,15 +170,19 @@ function proximaPergunta() {
 function mostrarResultado() {
     let estrutura = document.querySelector(".pagina-de-quizz");
     estrutura.innerHTML += `
-        <div class="pergunta resposta">
+        <div class="pergunta">
             <div class="titulo-pergunta titulo-resultado">
                 <span>Testando</span>
             </div>
             <div class="container-respostas">
                 <div class="resposta resultado">
                     <img src="http://1.bp.blogspot.com/-W3q49_GNpso/TaryCdv_4DI/AAAAAAAAAKo/7t1b4WDVNek/w1200-h630-p-k-no-nu/albus-dumbledore-gay.jpg" />
-                    <p>Esse é meu teste</p>
+                    <p>Esse é meu testeaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa</p>
                 </div>
+            </div>
+            <div class="acoes">
+                <button>Reiniciar quizz</button>
+                <div>Voltar para home</div>
             </div>
         </div>
     `
