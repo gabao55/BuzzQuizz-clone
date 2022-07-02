@@ -676,12 +676,12 @@ function renderizarSucessoQuizz(){
 }
 
 function escreverQuizzesDoUsuario (id) {
-    if (!localStorage.getItem("quizzesDoUsuario")) {
-        let ids = JSON.stringify[id];
+    if (lerQuizzesDoUsuario().length === 0) {
+        let ids = JSON.stringify([id]);
         localStorage.setItem("quizzesDoUsuario", ids);
     } else {
-        let idsAtuais = JSON.parse(localStorage.getItem("quizzesDoUsuario"));
-        let idsAtualizados = JSON.stringify(idsAtuais.push(id));
-        localStorage.setItem("quizzesDoUsuario", idsAtualizados);
+        let ids = lerQuizzesDoUsuario();
+        ids.push(id);
+        localStorage.setItem("quizzesDoUsuario", JSON.stringify(ids));
     }
 }
