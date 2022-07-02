@@ -4,8 +4,7 @@ let URLAPI = "https://mock-api.driven.com.br/api/v7/buzzquizz/"
 let quizzID;
 
 function iniciaTelaListaDeQuizzes() {
-    // const quizzesUsuarioSerializado=localStorage.getItem("lista");
-    // const quizzesUsuario = JSON.parse(quizzesUsuarioSerializado);
+    // const quizzesUsuario = lerQuizzesDoUsuario();
     let listaDeQuizzes = document.querySelector(".lista-quizzes");
    /* if (quizzesUsuario.length === 0) {
         */listaDeQuizzes.innerHTML += `<div class="secao-criar-quizz">
@@ -33,6 +32,14 @@ listaDeQuizzes.innerHTML +=`
     listaDeQuizzes.innerHTML += estrutura;
 
     consultarQuizzes();
+}
+
+function lerQuizzesDoUsuario () {
+    if (!localStorage.getItem("quizzesDoUsuario")) {
+        return [];
+    }
+
+    return JSON.parse(localStorage.getItem("quizzesDoUsuario"));
 }
 
 function consultarQuizzes() {
@@ -609,4 +616,15 @@ function seguirParaFinalizarQuizz(){
             return
         }*/
 })
+}
+
+function escreverQuizzesDoUsuario (id) {
+    if (!localStorage.getItem("quizzesDoUsuario")) {
+        let ids = JSON.stringify[id];
+        localStorage.setItem("quizzesDoUsuario", ids);
+    } else {
+        let idsAtuais = JSON.parse(localStorage.getItem("quizzesDoUsuario"));
+        let idsAtualizados = JSON.stringify(idsAtuais.push(id));
+        localStorage.setItem("quizzesDoUsuario", idsAtualizados);
+    }
 }
