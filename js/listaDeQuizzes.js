@@ -92,7 +92,6 @@ function renderizarBanner(resposta) {
             <span>${resposta.data.title}</span>
         </div>`
     renderizarPerguntas(resposta.data.questions);
-    mostrarResultado();
 }
 let listaRespostasCertas = [];
 function renderizarPerguntas(resposta) {
@@ -151,7 +150,7 @@ function analisarRespostas(element) {
                     obj.classList.add("errada");
                 }
             })
-            setTimeout(proximaPergunta, 2000);
+            proximaPergunta();
         }
     }
 }
@@ -160,10 +159,10 @@ function proximaPergunta() {
     quantRespondida = document.querySelectorAll(".certa");
     console.log(quantRespondida);
     if (quantRespondida.length < listaRespostasCertas.length) {
-        document.querySelector(`.pergunta${perguntaAtual + 1}`).parentNode.scrollIntoView({ behavior: "smooth" });
+        setTimeout(() => {document.querySelector(`.pergunta${perguntaAtual + 1}`).parentNode.scrollIntoView({ behavior: "smooth" });}, 2000);
     } else {
-        console.log(quantRespondida.length);
-        console.log(respostasCorretas);
+        mostrarResultado();
+        setTimeout(scrollParaResultado, 2000);
     }
 }
 
@@ -186,7 +185,11 @@ function mostrarResultado() {
             </div>
         </div>
     `
+}
 
+function scrollParaResultado() {
+    let resultado = document.querySelector(".titulo-resultado");
+    resultado.parentNode.scrollIntoView({ behavior: "smooth" });
 }
 
 // Criação de Quizz
