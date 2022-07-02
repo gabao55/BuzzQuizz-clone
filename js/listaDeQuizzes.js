@@ -367,6 +367,7 @@ function fecharOutrasPerguntas(perguntaAtual) {
 function seguirParaCriarNiveis() {
     quizz.questions = [];
     let questions = [];
+    let invalido = 0;
 
     let perguntas = document.querySelectorAll(".inserir-infos");
 
@@ -386,7 +387,7 @@ function seguirParaCriarNiveis() {
             question.title = title;
             question.color = color;
         } else {
-            alert("Preencha os campos corretamente");
+            invalido++;
             return
         }
 
@@ -406,7 +407,7 @@ function seguirParaCriarNiveis() {
             )
             numeroDeRespostasCorretas++;
         } else {
-            alert("Preencha os campos corretamente");
+            invalido++;
             return
         }
 
@@ -425,7 +426,7 @@ function seguirParaCriarNiveis() {
                 );
                 numeroDeRespostasIncorretas++;
             } else if (textoRespostaIncorreta || urlRespostaIncorreta) {
-                alert("Preencha os campos corretamente");
+                invalido++;
                 return
             }
         });
@@ -433,10 +434,16 @@ function seguirParaCriarNiveis() {
         if (validarPergunta(numeroDeRespostasCorretas, numeroDeRespostasIncorretas)) {
             questions.push(question);
         } else {
-            alert("Preencha os campos corretamente");
+            invalido++;
             return
         }        
     });
+
+    if (invalido > 0) {
+        alert("Preencha os campos corretamente");
+        return
+    }
+
     quizz.questions = questions; 
     renderizarCriarNiveis()//TODO: Tirar a função daqui para ser afetada pelos returns  
 }
