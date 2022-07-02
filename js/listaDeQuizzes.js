@@ -445,7 +445,7 @@ function seguirParaCriarNiveis() {
     }
 
     quizz.questions = questions; 
-    renderizarCriarNiveis()//TODO: Tirar a função daqui para ser afetada pelos returns  
+    renderizarCriarNiveis()
 }
 
 function validarTitleEColor(title, color) {
