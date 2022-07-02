@@ -87,7 +87,8 @@ function iniciaTelaPaginaDeQuizz(element) {
     promess.then(renderizarBanner);
 }
 function renderizarBanner(resposta) {
-    let estrutura = document.querySelector(".pagina-de-quizz")
+    let estrutura = document.querySelector(".pagina-de-quizz");
+    estrutura.innerHTML = "";
     estrutura.innerHTML += `<div class="banner"><img src="${resposta.data.image}">
             <span>${resposta.data.title}</span>
         </div>`
@@ -168,10 +169,11 @@ function proximaPergunta() {
 
 function mostrarResultado() {
     let estrutura = document.querySelector(".pagina-de-quizz");
+    let porcentagemAcertos = Math.round(respostasCorretas/listaRespostasCertas.length*100);
     estrutura.innerHTML += `
         <div class="pergunta">
             <div class="titulo-pergunta titulo-resultado">
-                <span>Testando</span>
+                <span>${porcentagemAcertos}% de acerto: </span>
             </div>
             <div class="container-respostas">
                 <div class="resposta resultado">
@@ -180,8 +182,8 @@ function mostrarResultado() {
                 </div>
             </div>
             <div class="acoes">
-                <button>Reiniciar quizz</button>
-                <div>Voltar para home</div>
+                <button onclick="iniciaTelaPaginaDeQuizz(${quizzID});scrollParaReiniciarQuiz();">Reiniciar quizz</button>
+                <div onclick="window.location.reload();">Voltar para home</div>
             </div>
         </div>
     `
@@ -190,6 +192,12 @@ function mostrarResultado() {
 function scrollParaResultado() {
     let resultado = document.querySelector(".titulo-resultado");
     resultado.parentNode.scrollIntoView({ behavior: "smooth" });
+}
+
+function scrollParaReiniciarQuiz() {
+    respostasCorretas = 0;
+    let inicioQuizz = document.querySelector(".pagina-de-quizz");
+    inicioQuizz.parentNode.scrollIntoView({ behavior: "smooth" });
 }
 
 // Criação de Quizz
