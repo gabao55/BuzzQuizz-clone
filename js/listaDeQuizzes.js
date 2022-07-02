@@ -82,12 +82,17 @@ function responderQuizz(element) {
 iniciaTelaListaDeQuizzes();
 
 // Página de Quizz
+
+let arrayDeNiveis;
+
 function iniciaTelaPaginaDeQuizz(element) {
     let promess = axios.get(`${URLAPI}quizzes/${element}`)
     promess.then(renderizarBanner);
 }
 function renderizarBanner(resposta) {
     let estrutura = document.querySelector(".pagina-de-quizz");
+
+    arrayDeNiveis = resposta.data.levels;
     estrutura.innerHTML = "";
     estrutura.innerHTML += `<div class="banner"><img src="${resposta.data.image}">
             <span>${resposta.data.title}</span>
@@ -170,15 +175,32 @@ function proximaPergunta() {
 function mostrarResultado() {
     let estrutura = document.querySelector(".pagina-de-quizz");
     let porcentagemAcertos = Math.round(respostasCorretas/listaRespostasCertas.length*100);
+    let nivelDoUsuario = 
+    {
+        title: null,
+        image: null,
+        text: null,
+        minValue: -1
+    };
+    
+    for (let i = 0 ; i < arrayDeNiveis.length ; i ++) {
+        if (arrayDeNiveis[i].minValue <= porcentagemAcertos && arrayDeNiveis[i].minValue > nivelDoUsuario.minValue) {
+            nivelDoUsuario.title = arrayDeNiveis[i].title;
+            nivelDoUsuario.image = arrayDeNiveis[i].image;
+            nivelDoUsuario.text = arrayDeNiveis[i].text;
+            nivelDoUsuario.minValue = arrayDeNiveis[i].minValue;
+        }
+    }
+
     estrutura.innerHTML += `
         <div class="pergunta">
             <div class="titulo-pergunta titulo-resultado">
-                <span>${porcentagemAcertos}% de acerto: </span>
+                <span>${porcentagemAcertos}% de acerto: ${nivelDoUsuario.title}</span>
             </div>
             <div class="container-respostas">
                 <div class="resposta resultado">
-                    <img src="http://1.bp.blogspot.com/-W3q49_GNpso/TaryCdv_4DI/AAAAAAAAAKo/7t1b4WDVNek/w1200-h630-p-k-no-nu/albus-dumbledore-gay.jpg" />
-                    <p>Esse é meu testeaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa</p>
+                    <img src="${nivelDoUsuario.image}" />
+                    <p>${nivelDoUsuario.text}</p>
                 </div>
             </div>
             <div class="acoes">
