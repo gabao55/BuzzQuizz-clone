@@ -588,6 +588,7 @@ function fecharOutrosNiveis(nivelAtual) {
 function seguirParaFinalizarQuizz() {
     quizz.levels = [];
     let levels = [];
+    let invalido = 0;
     let niveis = document.querySelectorAll(".inserir-infos");
     niveis.forEach(obj => {
         let level = {
@@ -608,19 +609,25 @@ function seguirParaFinalizarQuizz() {
             level.minValue = minValue;
             levels.push(level);
         } else {
-            alert("Preencha os campos corretamente");
+            invalido++;
             return
         }
 
     })
     if (verificarMinValue(levels)) {
-        quizz.levels = levels;
-        renderizarSucessoQuizz();
+        quizz.levels = levels;        
     } else {
-        alert("Preencha os campos corretamente");
-        return
+        invalido++;        
+    }
+
+    if (invalido>0){
+       alert("Preencha os campos corretamente!");
+       return
+    }else{
+        renderizarSucessoQuizz();
     }
 }
+
 function validarQuizz(title, image, text, minValue) {
 
     if (title.length < 9) {
@@ -646,13 +653,17 @@ function validarQuizz(title, image, text, minValue) {
     }
 }
 
-function verificarMinValue(levels){
-    console.log(levels);
+function verificarMinValue(levels){    
     for (let i=0;i<levels.length;i++){
-        if (levels[i].minValue==0){ //testar == se der errado
+        if (levels[i].minValue==0){
             return true;
         }
     }
-console.log(levels);
     return false;
+}
+function renderizarSucessoQuizz(){
+    
+    let paginaCriarQuizz = document.querySelector(".criar-quizz");
+    paginaCriarQuizz.innerHTML = `<h2>Seu quizz está pronto!</h2>`;
+
 }
