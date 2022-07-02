@@ -172,7 +172,7 @@ function proximaPergunta() {
     quantRespondida = document.querySelectorAll(".certa");
     console.log(quantRespondida);
     if (quantRespondida.length < listaRespostasCertas.length) {
-        setTimeout(() => {document.querySelector(`.pergunta${perguntaAtual + 1}`).parentNode.scrollIntoView({ behavior: "smooth" });}, 2000);
+        setTimeout(() => { document.querySelector(`.pergunta${perguntaAtual + 1}`).parentNode.scrollIntoView({ behavior: "smooth" }); }, 2000);
     } else {
         mostrarResultado();
         setTimeout(scrollParaResultado, 2000);
@@ -181,16 +181,16 @@ function proximaPergunta() {
 
 function mostrarResultado() {
     let estrutura = document.querySelector(".pagina-de-quizz");
-    let porcentagemAcertos = Math.round(respostasCorretas/listaRespostasCertas.length*100);
-    let nivelDoUsuario = 
+    let porcentagemAcertos = Math.round(respostasCorretas / listaRespostasCertas.length * 100);
+    let nivelDoUsuario =
     {
         title: null,
         image: null,
         text: null,
         minValue: -1
     };
-    
-    for (let i = 0 ; i < arrayDeNiveis.length ; i ++) {
+
+    for (let i = 0; i < arrayDeNiveis.length; i++) {
         if (arrayDeNiveis[i].minValue <= porcentagemAcertos && arrayDeNiveis[i].minValue > nivelDoUsuario.minValue) {
             nivelDoUsuario.title = arrayDeNiveis[i].title;
             nivelDoUsuario.image = arrayDeNiveis[i].image;
@@ -480,7 +480,7 @@ function seguirParaCriarNiveis() {
         } else {
             invalido++;
             return
-        }        
+        }
     });
 
     if (invalido > 0) {
@@ -488,7 +488,7 @@ function seguirParaCriarNiveis() {
         return
     }
 
-    quizz.questions = questions; 
+    quizz.questions = questions;
     renderizarCriarNiveis()
 }
 
@@ -556,9 +556,9 @@ function renderizarCriarNivel(element, numeroDoQuizz) {
                 </div>
                 <div class="criar-pergunta display-none">
                     <input type="text" placeholder="Título do Nível" />
-                    <input type="text" placeholder="% de acerto mínima" />     
+                    <input type="number" placeholder="% de acerto mínima" />     
                     <input type="url" placeholder="URL da imagem" />
-                    <input type="url" placeholder="Descrição do nível" />
+                    <input type="text" placeholder="Descrição do nível" />
                 </div>             
                 </div>
             </div>        
@@ -588,13 +588,14 @@ function fecharOutrosNiveis(nivelAtual) {
         nivelAberto.querySelector(".referencia-pergunta").innerHTML += `<ion-icon name="create-outline"></ion-icon>`;
         nivelAberto.classList.add("pergunta-fechada");
         nivelAberto.classList.remove("pergunta-aberta");
-        nivelAberto.querySelector(".criar-pergunta").classList.add("display-none");       
+        nivelAberto.querySelector(".criar-pergunta").classList.add("display-none");
     }
     return true
 }
-function seguirParaFinalizarQuizz(){
+function seguirParaFinalizarQuizz() {
     quizz.levels = [];
-    let levels=[];
+    let levels = [];
+    let invalido = 0;
     let niveis = document.querySelectorAll(".inserir-infos");
     niveis.forEach(obj => {
         let level = {
@@ -603,19 +604,75 @@ function seguirParaFinalizarQuizz(){
             text: null,
             minValue: null
         };
-        level.title = obj.querySelector(".criar-pergunta input").value;
-        //level.image = obj.querySelector(".criar-pergunta input :last-child").value;
-        //level.text = obj.querySelector(".criar-pergunta input :last-child").value;
-        level.minValue = obj.querySelector(".criar-pergunta input").value;
-        console.log(level);
-       /* if (validarTitleEColor(title, image)) {
+        let title = obj.querySelector(".criar-pergunta input").value;
+        let image = obj.querySelector(".criar-pergunta input[type=url]").value;
+        let text = obj.querySelector(".criar-pergunta input:last-child").value;
+        let minValue = obj.querySelector(".criar-pergunta input[type=number]").value;
+
+        if (validarQuizz(title, image, text, minValue)) {
             level.title = title;
             level.image = image;
+            level.text = text;
+            level.minValue = minValue;
+            levels.push(level);
         } else {
-            alert("Preencha os campos corretamente");
+            invalido++;
             return
-        }*/
-})
+        }
+
+    })
+    if (verificarMinValue(levels)) {
+        quizz.levels = levels;        
+    } else {
+        invalido++;        
+    }
+
+    if (invalido>0){
+       alert("Preencha os campos corretamente!");
+       return
+    }else{
+        renderizarSucessoQuizz();
+    }
+}
+
+function validarQuizz(title, image, text, minValue) {
+
+    if (title.length < 9) {
+        return false;
+    }
+
+    //validação da imagem
+    let url;
+    try {
+        url = new URL(image);
+    } catch (_) {
+        return false;
+    }
+
+    if (text.length < 29) {
+        return false;
+    }
+
+    if ((minValue < 0) || (minValue > 100)) {
+        return false
+    } else {
+        return true;
+    }
+}
+
+function verificarMinValue(levels){    
+    for (let i=0;i<levels.length;i++){
+        if (levels[i].minValue==0){
+            return true;
+        }
+    }
+    return false;
+}
+function renderizarSucessoQuizz(){
+    
+    let paginaCriarQuizz = document.querySelector(".criar-quizz");
+    paginaCriarQuizz.innerHTML = `<h2>Seu quizz está pronto!</h2>`;
+
 }
 
 function escreverQuizzesDoUsuario (id) {
