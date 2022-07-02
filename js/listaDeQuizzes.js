@@ -160,7 +160,7 @@ function proximaPergunta() {
     quantRespondida = document.querySelectorAll(".certa");
     console.log(quantRespondida);
     if (quantRespondida.length < listaRespostasCertas.length) {
-        document.querySelector(`.pergunta${perguntaAtual + 1}`).parentNode.scrollIntoView({behavior:"smooth"});
+        document.querySelector(`.pergunta${perguntaAtual + 1}`).parentNode.scrollIntoView({ behavior: "smooth" });
     } else {
         console.log(quantRespondida.length);
         console.log(respostasCorretas);
@@ -435,12 +435,10 @@ function seguirParaCriarNiveis() {
         } else {
             alert("Preencha os campos corretamente");
             return
-        }
+        }        
     });
-
-    quizz.questions = questions;
-
-    renderizarCriarNiveis();
+    quizz.questions = questions; 
+    renderizarCriarNiveis()//TODO: Tirar a função daqui para ser afetada pelos returns  
 }
 
 function validarTitleEColor(title, color) {
@@ -497,7 +495,7 @@ function renderizarCriarNiveis() {
     }
     paginaCriarQuizz.innerHTML += `<button onclick="seguirParaFinalizarQuizz();">Finalizar Quizz</button>`;
 }
-renderizarCriarNivel(element, numeroDoQuizz){
+function renderizarCriarNivel(element, numeroDoQuizz) {
     element.innerHTML += `
         <div class="inserir-infos pergunta-fechada" onclick="editarNivel(this);">
             <div>
@@ -514,4 +512,57 @@ renderizarCriarNivel(element, numeroDoQuizz){
                 </div>
             </div>        
     `
+}
+
+function editarNivel(element) {
+    let temNivelAberto = fecharOutrosNiveis(element);
+    if (!temNivelAberto) {
+        return
+    }
+    element.querySelector("ion-icon").remove();
+    element.classList.remove("pergunta-fechada");
+    element.classList.add("pergunta-aberta");
+    element.querySelectorAll(".display-none").forEach(
+        (e) => { e.classList.remove("display-none") }
+    );
+}
+function fecharOutrosNiveis(nivelAtual) {
+    let nivelAberto = document.querySelector(".pergunta-aberta");
+
+    if (nivelAberto === nivelAtual) {
+        return false
+    }
+
+    if (nivelAberto) {
+        nivelAberto.querySelector(".referencia-pergunta").innerHTML += `<ion-icon name="create-outline"></ion-icon>`;
+        nivelAberto.classList.add("pergunta-fechada");
+        nivelAberto.classList.remove("pergunta-aberta");
+        nivelAberto.querySelector(".criar-pergunta").classList.add("display-none");       
+    }
+    return true
+}
+function seguirParaFinalizarQuizz(){
+    quizz.levels = [];
+    let levels=[];
+    let niveis = document.querySelectorAll(".inserir-infos");
+    niveis.forEach(obj => {
+        let level = {
+            title: null,
+            image: null,
+            text: null,
+            minValue: null
+        };
+        level.title = obj.querySelector(".criar-pergunta input").value;
+        //level.image = obj.querySelector(".criar-pergunta input :last-child").value;
+        //level.text = obj.querySelector(".criar-pergunta input :last-child").value;
+        level.minValue = obj.querySelector(".criar-pergunta input").value;
+        console.log(level);
+       /* if (validarTitleEColor(title, image)) {
+            level.title = title;
+            level.image = image;
+        } else {
+            alert("Preencha os campos corretamente");
+            return
+        }*/
+})
 }
