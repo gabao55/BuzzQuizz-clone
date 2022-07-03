@@ -5,7 +5,7 @@ let quizzID;
 let quizzesUsuario;
 
 function iniciaTelaListaDeQuizzes() {
-    quizzesUsuario = lerQuizzesDoUsuario();     
+    quizzesUsuario = lerQuizzesDoUsuario();
     let listaDeQuizzes = document.querySelector(".lista-quizzes");
     if (quizzesUsuario.length === 0) {
         listaDeQuizzes.innerHTML += `<div class="secao-criar-quizz">
@@ -20,9 +20,9 @@ function iniciaTelaListaDeQuizzes() {
         </div>        
         <div class="quizzes-do-usuario"></div>
         `
-        
-        for (let i = 0; i < quizzesUsuario.length; i++) {  
-            let espacoDoUsuario=document.querySelector(".quizzes-do-usuario");          
+
+        for (let i = 0; i < quizzesUsuario.length; i++) {
+            let espacoDoUsuario = document.querySelector(".quizzes-do-usuario");
             espacoDoUsuario.innerHTML += `
         <div class="quizz" id="${quizzesUsuario[i].data.id}">
             <div class="gradient"></div>
@@ -46,7 +46,7 @@ function iniciaTelaListaDeQuizzes() {
 function lerQuizzesDoUsuario() {
     if (!localStorage.getItem("quizzesDoUsuario")) {
         return [];
-    }    
+    }
     return JSON.parse(localStorage.getItem("quizzesDoUsuario"));
 }
 
@@ -63,15 +63,15 @@ function erroAoListarQuizzes(error) {
 
 function listarQuizzes(resposta) {
     for (let i = 0; i < resposta.data.length; i++) {
-        let temigual=false;
-        for (let j=0;j <quizzesUsuario.length;j++){ 
-            if(resposta.data[i].id===quizzesUsuario[j].data.id){
-               temigual=true;
-            }   
+        let temigual = false;
+        for (let j = 0; j < quizzesUsuario.length; j++) {
+            if (resposta.data[i].id === quizzesUsuario[j].data.id) {
+                temigual = true;
+            }
         }
-        if(!temigual){
+        if (!temigual) {
             renderizarQuizz(resposta.data[i]);
-        }        
+        }
     }
 
     document.querySelectorAll(".quizz").forEach(obj => {
@@ -112,7 +112,7 @@ let arrayDeNiveis;
 function iniciaTelaPaginaDeQuizz(element) {
     let promess = axios.get(`${URLAPI}quizzes/${element}`);
     promess.catch(erroAoListarQuizzes);
-    promess.then(renderizarBanner);    
+    promess.then(renderizarBanner);
 }
 function renderizarBanner(resposta) {
     let estrutura = document.querySelector(".pagina-de-quizz");
@@ -689,7 +689,7 @@ function verificarMinValue(levels) {
 function postarQuizzDoUsuario() {
     let id = axios.post(`${URLAPI}quizzes`, quizz);
     id.catch(erroAoCriarQuizz);
-    id.then(escreverQuizzesDoUsuario);    
+    id.then(escreverQuizzesDoUsuario);
 }
 function erroAoCriarQuizz(error) {
     alert("Erro ao criar quizz.");
@@ -707,15 +707,16 @@ function escreverQuizzesDoUsuario(id) {
     }
     renderizarTelaDeSucesso(id);
 }
-function renderizarTelaDeSucesso(id){
+function renderizarTelaDeSucesso(id) {
     let paginaCriarQuizz = document.querySelector(".criar-quizz");
     paginaCriarQuizz.innerHTML = `<h2>Seu quizz está pronto!</h2>`;
     const quizzDoUsuario = `
+    <div>
             <div class="quizz" id="${id}" onclick="responderQuizz(this)">
                 <div class="gradient"></div>
                 <img src="${quizz.image}" />
                 <h3>${quizz.title}</h3>
-            </div>
+            </div></div>
         `;
     paginaCriarQuizz.innerHTML += quizzDoUsuario;
     paginaCriarQuizz.innerHTML += `

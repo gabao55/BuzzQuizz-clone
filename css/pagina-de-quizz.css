@@ -46,6 +46,7 @@ text-align: center;
 .pagina-de-quizz .titulo-pergunta span{
     width: 70vw;
     text-align: center;
+    text-shadow: 1px 1px 1px black;
 }
 .pagina-de-quizz .container-respostas{
     display: flex;
