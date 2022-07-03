@@ -33,7 +33,7 @@
     align-items: center;
 }
 
-.quizzes-do-usuario {
+.espaco-do-usuario {
     margin-top: 80px;
     display: flex;
     justify-content: space-between;
@@ -59,15 +59,23 @@
     width: 100%;
     display: flex;
     flex-wrap: wrap;
-    justify-content: space-between;
+    justify-content: flex-start;
+}
+.quizzes-do-usuario{
+    margin-top: 12px;
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
 }
 
 .quizz {
     width: 340px;
     height: 181px;
     margin-bottom: 14px;
+    margin-right: 10px;    
     position: relative;
-    border-radius: 5px;
+    border-radius: 5px;   
 }
 
 .gradient {
@@ -106,7 +114,7 @@
         width: 1051px;
     }
 
-    .quizzes-do-usuario {
+    .espaco-do-usuario {
         justify-content: flex-start;
-    }
+    }    
 }
