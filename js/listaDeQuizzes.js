@@ -28,8 +28,9 @@ function iniciaTelaListaDeQuizzes() {
             <div class="gradient"></div>
             <img src="${quizzesUsuario[i].data.image}" />
             <h3>${quizzesUsuario[i].data.title}</h3>
+            <div class="botao-delete" onclick="deletarQuizz(${quizzesUsuario[i].data.id})">-</div>
         </div>
-    `
+    `//mudei
         }
     }
     const estrutura = `
@@ -41,6 +42,13 @@ function iniciaTelaListaDeQuizzes() {
     listaDeQuizzes.innerHTML += estrutura;
 
     consultarQuizzes();
+}
+
+function deletarQuizz(id){//mudei
+    console.log(id);
+    let promess=axios.delete(`${URLAPI}quizzes/${id}`);
+    promess.catch(erroAoListarQuizzes);
+    promess.then(iniciaTelaListaDeQuizzes);
 }
 
 function lerQuizzesDoUsuario() {
@@ -74,7 +82,7 @@ function listarQuizzes(resposta) {
         }
     }
 
-    document.querySelectorAll(".quizz").forEach(obj => {
+   document.querySelectorAll(".quizz").forEach(obj => {
         obj.addEventListener(
             "click",
             () => {
@@ -96,10 +104,8 @@ function renderizarQuizz(element) {
     listaQuizzes.innerHTML += quizzAtual;
 }
 
-function responderQuizz(element) {
-    console.log(element.parentNode.parentNode)
-    quizzID = element.id;
-    console.log(quizzID);
+function responderQuizz(element) {    
+    quizzID = element.id;   
     element.parentNode.parentNode.remove();
     iniciaTelaPaginaDeQuizz(quizzID);
 }
@@ -188,8 +194,7 @@ function analisarRespostas(element) {
 }
 let quantRespondida;
 function proximaPergunta() {
-    quantRespondida = document.querySelectorAll(".certa");
-    console.log(quantRespondida);
+    quantRespondida = document.querySelectorAll(".certa");    
     if (quantRespondida.length < listaRespostasCertas.length) {
         setTimeout(() => { document.querySelector(`.pergunta${perguntaAtual + 1}`).parentNode.scrollIntoView({ behavior: "smooth" }); }, 2000);
     } else {
@@ -697,8 +702,7 @@ function erroAoCriarQuizz(error) {
     window.location.reload();
 }
 
-function escreverQuizzesDoUsuario(id) {
-    console.log(id);
+function escreverQuizzesDoUsuario(id) {    
     if (lerQuizzesDoUsuario().length === 0) {
         let ids = JSON.stringify([id]);
         localStorage.setItem("quizzesDoUsuario", ids);
@@ -709,9 +713,7 @@ function escreverQuizzesDoUsuario(id) {
     }
     renderizarTelaDeSucesso(id);
 }
-function renderizarTelaDeSucesso(id) {
-    console.log(id.data.id);
-    console.log(quizz);
+function renderizarTelaDeSucesso(id) {   
     let paginaCriarQuizz = document.querySelector(".criar-quizz");
     paginaCriarQuizz.innerHTML = `<h2>Seu quizz está pronto!</h2>`;
     const quizzDoUsuario = `
