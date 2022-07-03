@@ -135,7 +135,7 @@ function renderizarPerguntas(resposta) {
         })
         estrutura.innerHTML += `
     <div class="pergunta">
-            <div class="titulo-pergunta"><span>${perguntas[i].title}</span></div>
+            <div class="titulo-pergunta" style="background-color:${perguntas[i].color};"><span>${perguntas[i].title}</span></div>
             <div class="container-respostas pergunta${i}"></div></div>`;
         for (let j = 0; j < perguntas[i].answers.length; j++) {
             let containerRespostas = document.querySelector(`.pergunta${i}`);
@@ -721,5 +721,5 @@ function renderizarTelaDeSucesso(id){
     paginaCriarQuizz.innerHTML += `
         <div class="acoes">
         <button id= "${id}" onclick="responderQuizz(this)">Acessar Quizz</button>
-        <div onclick="window.location.reload();">Voltar para home</div>`
+        <div onclick="window.location.reload();">Voltar para home</div></div>`
 }
