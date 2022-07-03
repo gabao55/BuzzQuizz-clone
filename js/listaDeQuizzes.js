@@ -99,6 +99,7 @@ function renderizarQuizz(element) {
 function responderQuizz(element) {
     console.log(element.parentNode.parentNode)
     quizzID = element.id;
+    console.log(quizzID);
     element.parentNode.parentNode.remove();
     iniciaTelaPaginaDeQuizz(quizzID);
 }
@@ -697,6 +698,7 @@ function erroAoCriarQuizz(error) {
 }
 
 function escreverQuizzesDoUsuario(id) {
+    console.log(id);
     if (lerQuizzesDoUsuario().length === 0) {
         let ids = JSON.stringify([id]);
         localStorage.setItem("quizzesDoUsuario", ids);
@@ -708,11 +710,13 @@ function escreverQuizzesDoUsuario(id) {
     renderizarTelaDeSucesso(id);
 }
 function renderizarTelaDeSucesso(id) {
+    console.log(id.data.id);
+    console.log(quizz);
     let paginaCriarQuizz = document.querySelector(".criar-quizz");
     paginaCriarQuizz.innerHTML = `<h2>Seu quizz está pronto!</h2>`;
     const quizzDoUsuario = `
     <div>
-            <div class="quizz" id="${id}" onclick="responderQuizz(this)">
+            <div class="quizz" id="${id.data.id}" onclick="responderQuizz(this)">
                 <div class="gradient"></div>
                 <img src="${quizz.image}" />
                 <h3>${quizz.title}</h3>
@@ -721,6 +725,6 @@ function renderizarTelaDeSucesso(id) {
     paginaCriarQuizz.innerHTML += quizzDoUsuario;
     paginaCriarQuizz.innerHTML += `
         <div class="acoes">
-        <button id= "${id}" onclick="responderQuizz(this)">Acessar Quizz</button>
+        <button id= "${id.data.id}" onclick="responderQuizz(this)">Acessar Quizz</button>
         <div onclick="window.location.reload();">Voltar para home</div></div>`
 }
