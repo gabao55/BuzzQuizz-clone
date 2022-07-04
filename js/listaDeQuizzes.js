@@ -138,9 +138,9 @@ function renderizarPerguntas(resposta) {
             <div class="container-respostas pergunta${i}"></div></div>`;
         for (let j = 0; j < perguntas[i].answers.length; j++) {
             let containerRespostas = document.querySelector(`.pergunta${i}`);
-            containerRespostas.innerHTML += `<div class="resposta"><img src="${respostasAleatorias[j].image}">${respostasAleatorias[j].text}</div>`;
+            containerRespostas.innerHTML += `<div class="resposta resposta${j}"><img src="${respostasAleatorias[j].image}">${respostasAleatorias[j].text}</div>`;
             if (respostasAleatorias[j].isCorrectAnswer === true) {
-                listaRespostasCertas[i] = `<img src="${respostasAleatorias[j].image}">${respostasAleatorias[j].text}`;
+                listaRespostasCertas[i] = j;
             }
         }
         respostasAleatorias = [];
@@ -167,14 +167,14 @@ function analisarRespostas(element) {
                 obj.classList.add("respondida");
             })
             element.classList.remove("respondida");
-            if (listaRespostasCertas[i] == element.innerHTML) {
+            if (element.classList.contains(`resposta${listaRespostasCertas[i]}`)) {
                 element.classList.add("certa");
                 respostasCorretas++;
             } else {
                 element.classList.add("errada");
             }
             element.parentNode.querySelectorAll(".respondida").forEach(obj => {
-                if (listaRespostasCertas[i] == obj.innerHTML) {
+                if (obj.classList.contains(`resposta${listaRespostasCertas[i]}`)) {
                     obj.classList.add("certa");
                 } else {
                     obj.classList.add("errada");
