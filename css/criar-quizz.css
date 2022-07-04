@@ -123,13 +123,20 @@
     justify-content: center;
     cursor: pointer;    
 }
+.criar-quizz .quizz{
+    width: 340px;
+    height: 181px;
+}
 
 @media (min-width: 1100px) {
     .criar-quizz {
         width: 600px;
         margin-top: 140px; 
     }
-
+    .criar-quizz .quizz{
+        width: 500px;
+        height: 266px;
+    }
     .criar-quizz button {
         margin-top: 80px;
     }
