@@ -4,8 +4,8 @@ let URLAPI = "https://mock-api.driven.com.br/api/v7/buzzquizz/"
 let quizzID;
 let quizzesUsuario;
 
-function iniciaTelaListaDeQuizzes() {
-    quizzesUsuario = lerQuizzesDoUsuario();
+function iniciaTelaListaDeQuizzes() {    
+    quizzesUsuario = lerQuizzesDoUsuario();      
     let listaDeQuizzes = document.querySelector(".lista-quizzes");
     if (quizzesUsuario.length === 0) {
         listaDeQuizzes.innerHTML += `<div class="secao-criar-quizz">
@@ -27,10 +27,9 @@ function iniciaTelaListaDeQuizzes() {
         <div class="quizz" id="${quizzesUsuario[i].data.id}">
             <div class="gradient"></div>
             <img src="${quizzesUsuario[i].data.image}" />
-            <h3>${quizzesUsuario[i].data.title}</h3>
-            <div class="botao-delete" onclick="deletarQuizz(${quizzesUsuario[i].data.id})">-</div>
+            <h3>${quizzesUsuario[i].data.title}</h3>            
         </div>
-    `//mudei
+    `
         }
     }
     const estrutura = `
@@ -42,13 +41,6 @@ function iniciaTelaListaDeQuizzes() {
     listaDeQuizzes.innerHTML += estrutura;
 
     consultarQuizzes();
-}
-
-function deletarQuizz(id){//mudei
-    console.log(id);
-    let promess=axios.delete(`${URLAPI}quizzes/${id}`);
-    promess.catch(erroAoListarQuizzes);
-    promess.then(iniciaTelaListaDeQuizzes);
 }
 
 function lerQuizzesDoUsuario() {

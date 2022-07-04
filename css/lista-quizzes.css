@@ -111,20 +111,11 @@
     bottom: 10px;
     left: 18px;
 }
-.botao-delete{
-    width: 20px;
-    height: 20px;
-    position: absolute;
-    top:2px;
-    right: 2px;
-    background-color: #EC362D;
-}
 
 @media (min-width: 1100px) {
     .lista-quizzes {
         width: 1066px;
     }
-
     .espaco-do-usuario {
         justify-content: flex-start;
     }    
