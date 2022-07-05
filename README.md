@@ -1,4 +1,4 @@
-<h1 align="center">Clone BuzzQuizz</h1>
+<h1 align="center">Clone Aplicação de Quizzes</h1>
 
 <h2>Contexto</h2>
 
