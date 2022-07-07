@@ -1,4 +1,4 @@
-let URLAPI = "https://mock-api.driven.com.br/api/v7/buzzquizz/"
+let URLAPI = "https://mock-api.driven.com.br/api/vs/buzzquizz/"
 // Listagem de Quizz
 
 let quizzID;
